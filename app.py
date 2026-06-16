@@ -15,7 +15,17 @@ if "mensagens" not in st.session_state:
     st.session_state.mensagens = []
 
 st.sidebar.header("Seu progresso")
-st.sidebar.write(f"⭐ XP: {st.session_state.xp}")
+
+xp = st.session_state.xp
+nivel_usuario = xp // 100 + 1
+progresso = (xp % 100) / 100
+
+st.sidebar.write(f"⭐ XP: {xp}")
+st.sidebar.write(f"🏆 Nível: {nivel_usuario}")
+st.sidebar.progress(progresso)
+
+if xp >= 1000:
+    st.sidebar.success("🎓 Certificado desbloqueado!")
 
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
 modo = st.selectbox("Modo:", ["Conversação", "Aula do dia", "Desafio rápido", "Correção de frase"])
