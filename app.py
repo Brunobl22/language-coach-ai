@@ -99,7 +99,7 @@ Regras:
     
     resposta_texto = resposta.output_text
     
-      if "+10 XP" in resposta_texto:
+    if "+10 XP" in resposta_texto:
         st.session_state.xp += 10
         st.session_state.moedas += 1
     
