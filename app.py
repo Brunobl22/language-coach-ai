@@ -82,6 +82,24 @@ if st.sidebar.button("Comprar dica - 2 moedas"):
         st.sidebar.success("💡 Dica desbloqueada!")
     else:
         st.sidebar.error("Moedas insuficientes")
+        st.sidebar.markdown("---")
+
+if st.sidebar.button("📊 Meu Perfil"):
+    st.sidebar.info(f"""
+👤 Nome: Bruno
+
+⭐ XP Total: {st.session_state.xp}
+
+🏆 Nível: {nivel_usuario}
+
+🪙 Moedas: {st.session_state.moedas}
+
+🎯 Missões Concluídas: {st.session_state.missoes}
+
+❤️ Vidas: {st.session_state.vidas}
+
+🔥 Sequência: {st.session_state.streak} dias
+""")
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
 modo = st.selectbox("Modo:", ["Conversação", "Aula do dia", "Desafio rápido", "Correção de frase"])
 
