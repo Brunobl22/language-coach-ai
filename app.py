@@ -1,7 +1,16 @@
 import streamlit as st
 from openai import OpenAI
+import json
+import os
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+ARQUIVO = "progresso.json"
+
+if os.path.exists(ARQUIVO):
+    with open(ARQUIVO, "r") as f:
+        dados = json.load(f)
+else:
+    dados = {}
 
 st.set_page_config(page_title="AI Language Coach", layout="centered")
 
