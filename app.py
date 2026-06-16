@@ -18,26 +18,26 @@ st.title("🌍 AI Language Coach")
 st.write("Converse com um professor de inglês do dia a dia com IA.")
 
 if "xp" not in st.session_state:
-    st.session_state.xp = 0
+    st.session_state.xp = dados.get("xp", 0)
 
 if "mensagens" not in st.session_state:
     st.session_state.mensagens = []
 
 st.sidebar.header("Seu progresso")
 if "streak" not in st.session_state:
-    st.session_state.streak = 1
+    st.session_state.streak = dados.get("streak", 1)
 
 st.sidebar.write(f"🔥 Sequência: {st.session_state.streak} dias")
 if "vidas" not in st.session_state:
-    st.session_state.vidas = 5
+    st.session_state.vidas = dados.get("vidas", 5)
 
 st.sidebar.write(f"❤️ Vidas: {st.session_state.vidas}/5")
 if "moedas" not in st.session_state:
-    st.session_state.moedas = 0
+    st.session_state.moedas = dados.get("moedas", 0)
 
 st.sidebar.write(f"🪙 Moedas: {st.session_state.moedas}")
 if "missoes" not in st.session_state:
-    st.session_state.missoes = 0
+    st.session_state.missoes = dados.get("missoes", 0)
 
 st.sidebar.write(f"🎯 Missões feitas: {st.session_state.missoes}/5")
 
