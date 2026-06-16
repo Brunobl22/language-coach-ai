@@ -36,7 +36,17 @@ if xp >= 500:
 if xp >= 1000:
     st.sidebar.success("🥇 Medalha Ouro")
     st.sidebar.success("🎓 Certificado desbloqueado!")
+if xp >= 50:
+    st.sidebar.success("🎯 Primeiras 50 XP")
 
+if xp >= 250:
+    st.sidebar.success("🔥 Estudante Dedicado")
+
+if xp >= 500:
+    st.sidebar.success("🚀 Mestre da Conversação")
+
+if xp >= 1000:
+    st.sidebar.success("👑 Lenda do Inglês")
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
 modo = st.selectbox("Modo:", ["Conversação", "Aula do dia", "Desafio rápido", "Correção de frase"])
 
