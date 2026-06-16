@@ -27,6 +27,14 @@ if "moedas" not in st.session_state:
     st.session_state.moedas = 0
 
 st.sidebar.write(f"🪙 Moedas: {st.session_state.moedas}")
+if "missoes" not in st.session_state:
+    st.session_state.missoes = 0
+
+st.sidebar.write(f"🎯 Missões feitas: {st.session_state.missoes}/5")
+
+if st.session_state.missoes >= 5:
+    st.sidebar.success("🎁 Missão diária completa!")
+
 xp = st.session_state.xp
 nivel_usuario = xp // 100 + 1
 progresso = (xp % 100) / 100
@@ -102,10 +110,12 @@ Regras:
     if "+10 XP" in resposta_texto:
         st.session_state.xp += 10
         st.session_state.moedas += 1
+        st.session_state.missoes += 1
     
     elif "+5 XP" in resposta_texto:
         st.session_state.xp += 5
         st.session_state.moedas += 1
+        st.session_state.missoes += 1
     
     st.session_state.mensagens.append(
     {"role": "assistant", "content": resposta_texto}
