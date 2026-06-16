@@ -89,27 +89,26 @@ Regras:
 - Seja amigável e pareça um professor humano.
 """
 
-resposta = client.responses.create(
-model="gpt-5.4-mini",
-input=[
-{"role": "system", "content": prompt},
-*st.session_state.mensagens
-]
-)
-
-resposta_texto = resposta.output_text
-
-if "+10 XP" in resposta_texto:
-st.session_state.xp += 10
-st.session_state.moedas += 1
-
-elif "+5 XP" in resposta_texto:
-st.session_state.xp += 5
-st.session_state.moedas += 1
-
-st.session_state.mensagens.append(
-{"role": "assistant", "content": resposta_texto}
-)
-
-st.rerun()
-st.rerun()
+    resposta = client.responses.create(
+    model="gpt-5.4-mini",
+    input=[
+    {"role": "system", "content": prompt},
+    *st.session_state.mensagens
+    ]
+    )
+    
+    resposta_texto = resposta.output_text
+    
+    if "+10 XP" in resposta_texto:
+    st.session_state.xp += 10
+    st.session_state.moedas += 1
+    
+    elif "+5 XP" in resposta_texto:
+    st.session_state.xp += 5
+    st.session_state.moedas += 1
+    
+    st.session_state.mensagens.append(
+    {"role": "assistant", "content": resposta_texto}
+    )
+    
+    st.rerun()
