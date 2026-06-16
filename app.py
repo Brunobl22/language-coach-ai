@@ -33,7 +33,8 @@ st.sidebar.progress(progresso)
 faltam = 100 - (xp % 100)
 
 st.sidebar.write(f"Faltam {faltam} XP para o próximo nível")
-
+if xp >= 50:
+     st.sidebar.success("🥉 Primeiras 50 XP")
 if xp >= 100:
     st.sidebar.success("🥉 Medalha Bronze")
 
