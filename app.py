@@ -19,6 +19,10 @@ if "streak" not in st.session_state:
     st.session_state.streak = 1
 
 st.sidebar.write(f"🔥 Sequência: {st.session_state.streak} dias")
+if "vidas" not in st.session_state:
+    st.session_state.vidas = 5
+
+st.sidebar.write(f"❤️ Vidas: {st.session_state.vidas}/5")
 xp = st.session_state.xp
 nivel_usuario = xp // 100 + 1
 progresso = (xp % 100) / 100
