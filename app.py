@@ -65,6 +65,23 @@ if xp >= 500:
 
 if xp >= 1000:
     st.sidebar.success("👑 Lenda do Inglês")
+    st.sidebar.markdown("---")
+st.sidebar.subheader("🛒 Loja")
+
+if st.sidebar.button("Comprar vida extra - 3 moedas"):
+    if st.session_state.moedas >= 3:
+        st.session_state.moedas -= 3
+        st.session_state.vidas += 1
+        st.sidebar.success("❤️ Vida extra comprada!")
+    else:
+        st.sidebar.error("Moedas insuficientes")
+
+if st.sidebar.button("Comprar dica - 2 moedas"):
+    if st.session_state.moedas >= 2:
+        st.session_state.moedas -= 2
+        st.sidebar.success("💡 Dica desbloqueada!")
+    else:
+        st.sidebar.error("Moedas insuficientes")
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
 modo = st.selectbox("Modo:", ["Conversação", "Aula do dia", "Desafio rápido", "Correção de frase"])
 
