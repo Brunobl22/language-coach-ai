@@ -92,6 +92,7 @@ if st.sidebar.button("Comprar vida extra - 3 moedas"):
     if st.session_state.moedas >= 3:
         st.session_state.moedas -= 3
         st.session_state.vidas += 1
+        salvar_progresso()
         st.sidebar.success("❤️ Vida extra comprada!")
     else:
         st.sidebar.error("Moedas insuficientes")
@@ -99,6 +100,7 @@ if st.sidebar.button("Comprar vida extra - 3 moedas"):
 if st.sidebar.button("Comprar dica - 2 moedas"):
     if st.session_state.moedas >= 2:
         st.session_state.moedas -= 2
+        salvar_progresso()
         st.sidebar.success("💡 Dica desbloqueada!")
     else:
         st.sidebar.error("Moedas insuficientes")
@@ -166,11 +168,13 @@ Regras:
         st.session_state.xp += 10
         st.session_state.moedas += 1
         st.session_state.missoes += 1
+        salvar_progresso()
     
     elif "+5 XP" in resposta_texto:
         st.session_state.xp += 5
         st.session_state.moedas += 1
         st.session_state.missoes += 1
+        salvar_progresso()
     
     st.session_state.mensagens.append(
     {"role": "assistant", "content": resposta_texto}
