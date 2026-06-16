@@ -23,6 +23,10 @@ if "vidas" not in st.session_state:
     st.session_state.vidas = 5
 
 st.sidebar.write(f"❤️ Vidas: {st.session_state.vidas}/5")
+if "moedas" not in st.session_state:
+    st.session_state.moedas = 0
+
+st.sidebar.write(f"🪙 Moedas: {st.session_state.moedas}")
 xp = st.session_state.xp
 nivel_usuario = xp // 100 + 1
 progresso = (xp % 100) / 100
