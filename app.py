@@ -5,6 +5,7 @@ import os
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 ARQUIVO = "progresso.json"
+ARQUIVO_USUARIOS = "usuarios.json"
 
 if os.path.exists(ARQUIVO):
     with open(ARQUIVO, "r") as f:
@@ -22,6 +23,32 @@ def salvar_progresso():
 
     with open(ARQUIVO, "w") as f:
         json.dump(dados, f)
+        if os.path.exists(ARQUIVO_USUARIOS):
+    with open(ARQUIVO_USUARIOS, "r") as f:
+        usuarios = json.load(f)
+else:
+    usuarios = {}
+
+st.sidebar.markdown("---")
+st.sidebar.subheader("🔐 Login")
+
+usuario = st.sidebar.text_input("Usuário")
+senha = st.sidebar.text_input("Senha", type="password")
+
+if st.sidebar.button("Entrar / Cadastrar"):
+    if usuario not in usuarios:
+        usuarios[usuario] = {"senha": senha}
+
+        with open(ARQUIVO_USUARIOS, "w") as f:
+            json.dump(usuarios, f)
+
+        st.sidebar.success("Usuário criado!")
+
+    elif usuarios[usuario]["senha"] == senha:
+        st.sidebar.success("Login realizado!")
+
+    else:
+        st.sidebar.error("Senha incorreta")
 
 st.set_page_config(page_title="AI Language Coach", layout="centered")
 
