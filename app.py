@@ -1,30 +1,31 @@
 import streamlit as st
+from openai import OpenAI
+
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.set_page_config(page_title="AI Language Coach")
 
-st.title("🌎 AI Language Coach")
-st.write("Aprenda inglês e espanhol com exercícios simples.")
+st.title("🌍 AI Language Coach")
+st.write("Aprenda inglês e espanhol com IA.")
 
-idioma = st.selectbox("Idioma:", ["Inglês", "Espanhol"])
-nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
-objetivo = st.selectbox("Objetivo:", ["Viagem", "Trabalho", "Conversação", "Entrevista"])
+idioma = st.selectbox(
+    "Idioma:",
+    ["Inglês", "Espanhol"]
+)
 
-frase = st.text_input("Traduza: bom dia")
+frase = st.text_input("Digite uma frase:")
 
-respostas = {
-    "Inglês": "good morning",
-    "Espanhol": "buenos días"
-}
+if st.button("Traduzir"):
 
-if st.button("Corrigir"):
-    resposta_correta = respostas[idioma]
+    prompt = f"""
+    Traduza a frase abaixo para {idioma}:
 
-    if frase.lower().strip() == resposta_correta:
-        st.success("✅ Correto! +10 pontos")
-    else:
-        st.error("❌ Ainda não.")
-        st.info(f"Resposta correta: {resposta_correta}")
+    {frase}
+    """
 
-    st.write(f"📚 Idioma: {idioma}")
-    st.write(f"🎯 Objetivo: {objetivo}")
-    st.write(f"📈 Nível: {nivel}")
+    resposta = client.responses.create(
+        model="gpt-5.4-mini",
+        input=prompt
+    )
+
+    st.success(resposta.output_text)
