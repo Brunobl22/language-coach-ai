@@ -15,7 +15,10 @@ if "mensagens" not in st.session_state:
     st.session_state.mensagens = []
 
 st.sidebar.header("Seu progresso")
+if "streak" not in st.session_state:
+    st.session_state.streak = 1
 
+st.sidebar.write(f"🔥 Sequência: {st.session_state.streak} dias")
 xp = st.session_state.xp
 nivel_usuario = xp // 100 + 1
 progresso = (xp % 100) / 100
