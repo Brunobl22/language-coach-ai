@@ -3,10 +3,10 @@ from openai import OpenAI
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-st.set_page_config(page_title="AI Language Coach")
+st.set_page_config(page_title="AI Language Coach", layout="centered")
 
 st.title("🌍 AI Language Coach")
-st.write("Professor de inglês do dia a dia com IA, conversa natural e XP.")
+st.write("Converse com um professor de inglês do dia a dia com IA.")
 
 if "xp" not in st.session_state:
     st.session_state.xp = 0
@@ -20,6 +20,9 @@ st.sidebar.write(f"⭐ XP: {st.session_state.xp}")
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
 modo = st.selectbox("Modo:", ["Conversação", "Aula do dia", "Desafio rápido", "Correção de frase"])
 
+st.markdown("### 👨‍🏫 Teacher Alex")
+st.info("Olá! Eu sou seu professor de inglês. Vamos praticar conversa real.")
+
 for msg in st.session_state.mensagens:
     with st.chat_message(msg["role"]):
         st.write(msg["content"])
@@ -30,34 +33,20 @@ if texto:
     st.session_state.mensagens.append({"role": "user", "content": texto})
 
     prompt = f"""
-Você é um professor de inglês chamado Teacher Alex.
+Você é Teacher Alex, um professor de inglês para brasileiros.
 
-Perfil:
-- Ensina inglês do dia a dia.
-- O aluno é brasileiro.
-- Nível do aluno: {nivel}.
-- Modo escolhido: {modo}.
+Nível do aluno: {nivel}
+Modo: {modo}
 
-Como responder:
-- Converse de forma natural.
-- Use frases curtas.
-- Ensine em português simples.
-- Corrija erros quando o aluno escrever em inglês.
-- Dê uma nota de 0 a 10 quando o aluno tentar falar inglês.
-- Dê +10 XP quando a resposta estiver boa.
-- Dê +5 XP quando tiver erro, mas o aluno tentou.
-- Sempre termine com uma pergunta curta em inglês para continuar a conversa.
-
-Exemplo:
-Teacher Alex:
-Great job! ✅
-"Hello" está correto.
-
-Nota: 10/10
-+10 XP
-
-Now answer:
-How are you today?
+Regras:
+- Responda em português simples.
+- Use inglês do dia a dia.
+- Corrija erros do aluno.
+- Dê nota de 0 a 10.
+- Se estiver bom, escreva exatamente: +10 XP
+- Se tiver erro mas tentou, escreva exatamente: +5 XP
+- Sempre termine com uma pergunta curta em inglês.
+- Seja amigável e pareça um professor humano.
 """
 
     resposta = client.responses.create(
