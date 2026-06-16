@@ -99,9 +99,9 @@ Regras:
 
     resposta_texto = resposta.output_text
 
-if "+10 XP" in resposta_texto:
-    st.session_state.xp += 10
-    st.session_state.moedas += 1
+ if "+10 XP" in resposta_texto:
+   st.session_state.xp += 10
+     st.session_state.moedas += 1
 
 elif "+5 XP" in resposta_texto:
     st.session_state.xp += 5
