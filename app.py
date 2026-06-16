@@ -23,7 +23,7 @@ def salvar_progresso():
 
     with open(ARQUIVO, "w") as f:
         json.dump(dados, f)
-        if os.path.exists(ARQUIVO_USUARIOS):
+if os.path.exists(ARQUIVO_USUARIOS):
     with open(ARQUIVO_USUARIOS, "r") as f:
         usuarios = json.load(f)
 else:
