@@ -12,7 +12,7 @@ if os.path.exists(ARQUIVO):
 else:
     dados = {}
     def salvar_progresso():
-    dados = {
+     dados = {
         "xp": st.session_state.xp,
         "moedas": st.session_state.moedas,
         "vidas": st.session_state.vidas,
