@@ -23,7 +23,9 @@ progresso = (xp % 100) / 100
 st.sidebar.write(f"⭐ XP: {xp}")
 st.sidebar.write(f"🏆 Nível: {nivel_usuario}")
 st.sidebar.progress(progresso)
+faltam = 100 - (xp % 100)
 
+st.sidebar.write(f"Faltam {faltam} XP para o próximo nível")
 if xp >= 1000:
     st.sidebar.success("🎓 Certificado desbloqueado!")
 
