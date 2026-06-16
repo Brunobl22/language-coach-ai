@@ -6,7 +6,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 st.set_page_config(page_title="AI Language Coach")
 
 st.title("🌍 AI Language Coach")
-st.write("Professor de inglês do dia a dia com IA, desafios e XP.")
+st.write("Professor de inglês do dia a dia com IA, conversa natural e XP.")
 
 if "xp" not in st.session_state:
     st.session_state.xp = 0
@@ -18,7 +18,7 @@ st.sidebar.header("Seu progresso")
 st.sidebar.write(f"⭐ XP: {st.session_state.xp}")
 
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
-modo = st.selectbox("Modo:", ["Aula do dia", "Conversação", "Desafio rápido", "Correção de frase"])
+modo = st.selectbox("Modo:", ["Conversação", "Aula do dia", "Desafio rápido", "Correção de frase"])
 
 for msg in st.session_state.mensagens:
     with st.chat_message(msg["role"]):
@@ -30,18 +30,34 @@ if texto:
     st.session_state.mensagens.append({"role": "user", "content": texto})
 
     prompt = f"""
-Você é um professor de inglês do dia a dia.
-Nível do aluno: {nivel}
-Modo escolhido: {modo}
+Você é um professor de inglês chamado Teacher Alex.
 
-Regras:
-- Fale em português simples.
-- Ensine inglês útil para situações reais.
-- Corrija erros do aluno com gentileza.
-- Dê uma nota de 0 a 10 quando o aluno tentar responder em inglês.
-- Se a resposta estiver boa, diga: +10 XP.
-- Se tiver erro, diga: +5 XP por tentativa.
-- No final, faça uma nova pergunta ou desafio curto.
+Perfil:
+- Ensina inglês do dia a dia.
+- O aluno é brasileiro.
+- Nível do aluno: {nivel}.
+- Modo escolhido: {modo}.
+
+Como responder:
+- Converse de forma natural.
+- Use frases curtas.
+- Ensine em português simples.
+- Corrija erros quando o aluno escrever em inglês.
+- Dê uma nota de 0 a 10 quando o aluno tentar falar inglês.
+- Dê +10 XP quando a resposta estiver boa.
+- Dê +5 XP quando tiver erro, mas o aluno tentou.
+- Sempre termine com uma pergunta curta em inglês para continuar a conversa.
+
+Exemplo:
+Teacher Alex:
+Great job! ✅
+"Hello" está correto.
+
+Nota: 10/10
++10 XP
+
+Now answer:
+How are you today?
 """
 
     resposta = client.responses.create(
