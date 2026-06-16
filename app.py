@@ -3,42 +3,28 @@ import streamlit as st
 st.set_page_config(page_title="AI Language Coach")
 
 st.title("🌎 AI Language Coach")
+st.write("Aprenda inglês e espanhol com exercícios simples.")
 
-idioma = st.selectbox(
-    "Escolha o idioma:",
-    ["Inglês", "Espanhol"]
-)
+idioma = st.selectbox("Idioma:", ["Inglês", "Espanhol"])
+nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
+objetivo = st.selectbox("Objetivo:", ["Viagem", "Trabalho", "Conversação", "Entrevista"])
 
-mensagem = st.text_input("Digite uma frase:")
+frase = st.text_input("Traduza: bom dia")
 
-traducao_en = {
-    "bom dia": "Good morning",
-    "boa tarde": "Good afternoon",
-    "boa noite": "Good night",
-    "olá": "Hello",
-    "tchau": "Goodbye"
+respostas = {
+    "Inglês": "good morning",
+    "Espanhol": "buenos días"
 }
 
-traducao_es = {
-    "bom dia": "Buenos días",
-    "boa tarde": "Buenas tardes",
-    "boa noite": "Buenas noches",
-    "olá": "Hola",
-    "tchau": "Adiós"
-}
+if st.button("Corrigir"):
+    resposta_correta = respostas[idioma]
 
-if st.button("Enviar"):
-    texto = mensagem.lower()
-
-    if idioma == "Inglês":
-        resposta = traducao_en.get(
-            texto,
-            "Tradução não encontrada."
-        )
+    if frase.lower().strip() == resposta_correta:
+        st.success("✅ Correto! +10 pontos")
     else:
-        resposta = traducao_es.get(
-            texto,
-            "Tradução não encontrada."
-        )
+        st.error("❌ Ainda não.")
+        st.info(f"Resposta correta: {resposta_correta}")
 
-    st.success(resposta)
+    st.write(f"📚 Idioma: {idioma}")
+    st.write(f"🎯 Objetivo: {objetivo}")
+    st.write(f"📈 Nível: {nivel}")
