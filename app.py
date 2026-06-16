@@ -11,7 +11,7 @@ if os.path.exists(ARQUIVO):
         dados = json.load(f)
 else:
     dados = {}
-  def salvar_progresso():
+def salvar_progresso():
     dados = {
         "xp": st.session_state.xp,
         "moedas": st.session_state.moedas,
