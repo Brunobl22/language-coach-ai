@@ -43,12 +43,22 @@ if st.sidebar.button("Entrar / Cadastrar"):
             json.dump(usuarios, f)
 
         st.sidebar.success("Usuário criado!")
+        st.session_state.logado = True
+        st.session_state.usuario = usuario
 
     elif usuarios[usuario]["senha"] == senha:
         st.sidebar.success("Login realizado!")
+        st.session_state.logado = True
+        st.session_state.usuario = usuario
 
     else:
         st.sidebar.error("Senha incorreta")
+     if "logado" not in st.session_state:
+        st.session_state.logado = False
+
+   if not st.session_state.logado:
+    st.warning("Faça login ou cadastre-se para usar o app.")
+    st.stop()
 
 st.set_page_config(page_title="AI Language Coach", layout="centered")
 
@@ -159,7 +169,7 @@ for msg in st.session_state.mensagens:
     with st.chat_message(msg["role"]):
         st.write(msg["content"])
 
-texto = st.chat_input("Digite sua resposta ou mensagem...")
+texto = st.chat_input("Digite sua resposta ou mensagem...")  
 
 if texto:
     st.session_state.mensagens.append({"role": "user", "content": texto})
