@@ -18,7 +18,8 @@ def progresso_padrao():
         "moedas": 0,
         "vidas": 5,
         "missoes": 0,
-        "streak": 1
+        "streak": 1,
+        "ultima_aula": ""
     }
 
 def salvar_usuarios():
@@ -32,7 +33,8 @@ def salvar_progresso():
         "moedas": st.session_state.moedas,
         "vidas": st.session_state.vidas,
         "missoes": st.session_state.missoes,
-        "streak": st.session_state.streak
+        "streak": st.session_state.streak,
+        "ultima_aula": st.session_state.get("ultima_aula", "")
     }
     salvar_usuarios()
 
@@ -66,6 +68,7 @@ if st.sidebar.button("Entrar / Cadastrar"):
         st.session_state.vidas = progresso["vidas"]
         st.session_state.missoes = progresso["missoes"]
         st.session_state.streak = progresso["streak"]
+        st.session_state.ultima_aula = progresso.get("ultima_aula", "")
         st.sidebar.success("Login realizado!")
         st.session_state.logado = True
         st.session_state.usuario = usuario
@@ -185,6 +188,9 @@ if st.sidebar.button("📊 Meu Perfil"):
 """)
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
 modo = st.selectbox("Modo:", ["Conversação", "Aula do dia", "Desafio rápido", "Correção de frase"])
+if modo == "Aula do dia":
+    st.session_state.ultima_aula = "Greetings and Introductions"
+    salvar_progresso()
 
 st.markdown("### 👨‍🏫 Teacher Alex")
 st.info("Olá! Eu sou seu professor de inglês. Vamos praticar conversa real.")
@@ -200,6 +206,7 @@ if texto:
 
     prompt = f"""
 Você é Teacher Alex, um professor virtual de inglês amigável para brasileiros.
+Última aula estudada: {st.session_state.get("ultima_aula", "Nenhuma")}
 
 Nível do aluno: {nivel}
 Modo: {modo}
@@ -209,6 +216,9 @@ Sua personalidade:
 - Não seja repetitivo.
 - Não faça sempre a mesma pergunta.
 - Lembre do contexto da conversa.
+- Se existir uma última aula estudada, lembre dela naturalmente.
+- Continue a aprendizagem de onde o aluno parou.
+- Cumprimente o aluno pelo nome quando possível.
 
 Como responder:
 - Corrija a frase do aluno quando necessário.
