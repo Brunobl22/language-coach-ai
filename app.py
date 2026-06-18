@@ -26,8 +26,7 @@ def progresso_padrao():
           "objetivo": "",
           "erros_comuns": []
  }
-        
-
+  }
 def salvar_usuarios():
     with open(ARQUIVO_USUARIOS, "w") as f:
         json.dump(usuarios, f)
