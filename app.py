@@ -76,6 +76,17 @@ if st.sidebar.button("Entrar / Cadastrar"):
 st.set_page_config(page_title="AI Language Coach", layout="centered")
 
 st.title("🌍 AI Language Coach")
+col1, col2 = st.columns([1, 4])
+
+with col1:
+    st.image(
+        "https://api.dicebear.com/7.x/bottts/png?seed=TeacherAlex",
+        width=120
+    )
+
+with col2:
+    st.markdown("### 👨‍🏫 Teacher Alex")
+    st.write("Seu professor virtual de inglês do dia a dia.")
 st.write("Converse com um professor de inglês do dia a dia com IA.")
 
 if "xp" not in st.session_state:
