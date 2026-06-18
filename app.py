@@ -12,17 +12,30 @@ if os.path.exists(ARQUIVO):
         dados = json.load(f)
 else:
     dados = {}
+def progresso_padrao():
+    return {
+        "xp": 0,
+        "moedas": 0,
+        "vidas": 5,
+        "missoes": 0,
+        "streak": 1
+    }
+
+def salvar_usuarios():
+    with open(ARQUIVO_USUARIOS, "w") as f:
+        json.dump(usuarios, f)
+
 def salvar_progresso():
-    dados = {
+    usuario_atual = st.session_state.usuario
+    usuarios[usuario_atual]["progresso"] = {
         "xp": st.session_state.xp,
         "moedas": st.session_state.moedas,
         "vidas": st.session_state.vidas,
         "missoes": st.session_state.missoes,
         "streak": st.session_state.streak
     }
+    salvar_usuarios()
 
-    with open(ARQUIVO, "w") as f:
-        json.dump(dados, f)
 if os.path.exists(ARQUIVO_USUARIOS):
     with open(ARQUIVO_USUARIOS, "r") as f:
         usuarios = json.load(f)
@@ -37,16 +50,22 @@ senha = st.sidebar.text_input("Senha", type="password")
 
 if st.sidebar.button("Entrar / Cadastrar"):
     if usuario not in usuarios:
-        usuarios[usuario] = {"senha": senha}
-
-        with open(ARQUIVO_USUARIOS, "w") as f:
-            json.dump(usuarios, f)
-
+        usuarios[usuario] = {
+            "senha": senha,
+            "progresso": progresso_padrao()
+        }
+        salvar_usuarios()
         st.sidebar.success("Usuário criado!")
         st.session_state.logado = True
         st.session_state.usuario = usuario
 
     elif usuarios[usuario]["senha"] == senha:
+        progresso = usuarios[usuario].get("progresso", progresso_padrao())
+        st.session_state.xp = progresso["xp"]
+        st.session_state.moedas = progresso["moedas"]
+        st.session_state.vidas = progresso["vidas"]
+        st.session_state.missoes = progresso["missoes"]
+        st.session_state.streak = progresso["streak"]
         st.sidebar.success("Login realizado!")
         st.session_state.logado = True
         st.session_state.usuario = usuario
