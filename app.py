@@ -19,8 +19,14 @@ def progresso_padrao():
         "vidas": 5,
         "missoes": 0,
         "streak": 1,
-        "ultima_aula": ""
-    }
+        "ultima_aula": "",
+        "perfil": {
+        "nome": "",
+         "cidade": "",
+          "objetivo": "",
+          "erros_comuns": []
+ }
+        
 
 def salvar_usuarios():
     with open(ARQUIVO_USUARIOS, "w") as f:
@@ -34,8 +40,14 @@ def salvar_progresso():
         "vidas": st.session_state.vidas,
         "missoes": st.session_state.missoes,
         "streak": st.session_state.streak,
-        "ultima_aula": st.session_state.get("ultima_aula", "")
-    }
+        "ultima_aula": st.session_state.get("ultima_aula", ""),
+        "perfil": st.session_state.get("perfil", {
+        "nome": "",
+        "cidade": "",
+        "objetivo": "",
+        "erros_comuns": []
+})
+ }
     salvar_usuarios()
 
 if os.path.exists(ARQUIVO_USUARIOS):
@@ -69,6 +81,12 @@ if st.sidebar.button("Entrar / Cadastrar"):
         st.session_state.missoes = progresso["missoes"]
         st.session_state.streak = progresso["streak"]
         st.session_state.ultima_aula = progresso.get("ultima_aula", "")
+        st.session_state.perfil = progresso.get("perfil", {
+             "nome": "",
+             "cidade": "",
+             "objetivo": "",
+             "erros_comuns": []
+})
         st.sidebar.success("Login realizado!")
         st.session_state.logado = True
         st.session_state.usuario = usuario
