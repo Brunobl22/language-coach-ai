@@ -218,21 +218,7 @@ if st.sidebar.button("📊 Meu Perfil"):
         st.session_state.perfil["objetivo"] = objetivo_aluno
         salvar_progresso()
         st.sidebar.success("Perfil salvo!")
-        
-👤 Nome: Bruno
- 
-⭐ XP Total: {st.session_state.xp}
-
-🏆 Nível: {nivel_usuario}
-
-🪙 Moedas: {st.session_state.moedas}
-
-🎯 Missões Concluídas: {st.session_state.missoes}
-
-❤️ Vidas: {st.session_state.vidas}
-
-🔥 Sequência: {st.session_state.streak} dias
-""")
+    
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
 modo = st.selectbox("Modo:", ["Conversação", "Aula do dia", "Desafio rápido", "Correção de frase"])
 if modo == "Aula do dia":
