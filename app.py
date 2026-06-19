@@ -188,36 +188,34 @@ if st.sidebar.button("Comprar dica - 2 moedas"):
         st.sidebar.markdown("---")
 
 with st.sidebar.expander("📄 Meu Perfil", expanded=False):
-      if "perfil" not in st.session_state:
-         st.session_state.perfil = {
+
+    if "perfil" not in st.session_state:
+        st.session_state.perfil = {
             "nome": "",
             "cidade": "",
-            "objetivo": "",
-            "erros_comuns": []
+            "objetivo": ""
         }
-       st.sidebar.markdown("### 🧠 Memória do Aluno")
-    
-    nome_aluno = st.sidebar.text_input(
-           "Nome",
+
+    nome_aluno = st.text_input(
+        "Nome",
         value=st.session_state.perfil["nome"]
     )
 
-    cidade_aluno = st.sidebar.text_input(
-            "Cidade",
+    cidade_aluno = st.text_input(
+        "Cidade",
         value=st.session_state.perfil["cidade"]
     )
 
-    objetivo_aluno = st.sidebar.text_input(
-            "Objetivo",
+    objetivo_aluno = st.text_input(
+        "Objetivo",
         value=st.session_state.perfil["objetivo"]
     )
 
-    if st.sidebar.button("💾 Salvar Perfil"):
+    if st.button("💾 Salvar Perfil"):
         st.session_state.perfil["nome"] = nome_aluno
         st.session_state.perfil["cidade"] = cidade_aluno
         st.session_state.perfil["objetivo"] = objetivo_aluno
-        salvar_progresso()
-        st.sidebar.success("Perfil salvo!")
+        st.success("Perfil salvo!")
     
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
 modo = st.selectbox("Modo:", ["Conversação", "Aula do dia", "Desafio rápido", "Correção de frase"])
