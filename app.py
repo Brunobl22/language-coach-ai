@@ -189,13 +189,12 @@ if st.sidebar.button("Comprar dica - 2 moedas"):
 
 if st.sidebar.button("📊 Meu Perfil"):
     if "perfil" not in st.session_state:
-st.session_state.perfil = {
-       "nome": "",
-       "cidade": "",
-       "objetivo": "",
-       "erros_comuns": []
-      }
-
+         st.session_state.perfil = {
+            "nome": "",
+            "cidade": "",
+            "objetivo": "",
+            "erros_comuns": []
+        }
     st.sidebar.markdown("### 🧠 Memória do Aluno")
 
     nome_aluno = st.sidebar.text_input(
