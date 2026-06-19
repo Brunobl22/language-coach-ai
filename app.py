@@ -291,9 +291,6 @@ Sistema de XP:
     )
     
     resposta_texto = resposta.output_text
-    st.audio(
-    f"https://translate.google.com/translate_tts?ie=UTF-8&q={resposta_texto}&tl=en&client=tw-ob"
-)
     if "+10 XP" in resposta_texto:
         st.session_state.xp += 10
         st.session_state.moedas += 1
