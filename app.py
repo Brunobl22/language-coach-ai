@@ -32,8 +32,8 @@ def salvar_usuarios():
         json.dump(usuarios, f)
 
 def salvar_progresso():
-   if "usuario" not in st.session_state:
-       return
+    if "usuario" not in st.session_state:
+        return
     usuario_atual = st.session_state.usuario
     usuarios[usuario_atual]["progresso"] = {
         "xp": st.session_state.xp,
