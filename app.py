@@ -295,7 +295,7 @@ Sistema de XP:
     tts = gTTS(text=resposta_texto, lang="en")
     tts.save("alex.mp3")
     with open("alex.mp3", "rb") as audio_file:
-    st.audio(audio_file.read(), format="audio/mp3")
+        st.audio(audio_file.read(), format="audio/mp3")
     
     if "+10 XP" in resposta_texto:
         st.session_state.xp += 10
