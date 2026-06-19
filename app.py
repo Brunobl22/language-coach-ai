@@ -197,20 +197,20 @@ with st.sidebar.expander("📄 Meu Perfil", expanded=False):
         }
        st.sidebar.markdown("### 🧠 Memória do Aluno")
     
-           nome_aluno = st.sidebar.text_input(
-               "Nome",
-            value=st.session_state.perfil["nome"]
-        )
-    
-            cidade_aluno = st.sidebar.text_input(
-                "Cidade",
-            value=st.session_state.perfil["cidade"]
-        )
-    
-            objetivo_aluno = st.sidebar.text_input(
-                "Objetivo",
-            value=st.session_state.perfil["objetivo"]
-        )
+       nome_aluno = st.sidebar.text_input(
+           "Nome",
+        value=st.session_state.perfil["nome"]
+    )
+
+        cidade_aluno = st.sidebar.text_input(
+            "Cidade",
+        value=st.session_state.perfil["cidade"]
+    )
+
+        objetivo_aluno = st.sidebar.text_input(
+            "Objetivo",
+        value=st.session_state.perfil["objetivo"]
+    )
 
      if st.sidebar.button("💾 Salvar Perfil"):
         st.session_state.perfil["nome"] = nome_aluno
