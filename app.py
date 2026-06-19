@@ -188,6 +188,37 @@ if st.sidebar.button("Comprar dica - 2 moedas"):
         st.sidebar.markdown("---")
 
 if st.sidebar.button("📊 Meu Perfil"):
+    if "perfil" not in st.session_state:
+st.session_state.perfil = {
+       "nome": "",
+       "cidade": "",
+       "objetivo": "",
+       "erros_comuns": []
+      }
+
+    st.sidebar.markdown("### 🧠 Memória do Aluno")
+
+    nome_aluno = st.sidebar.text_input(
+        "Nome",
+        value=st.session_state.perfil["nome"]
+    )
+
+    cidade_aluno = st.sidebar.text_input(
+        "Cidade",
+        value=st.session_state.perfil["cidade"]
+    )
+
+    objetivo_aluno = st.sidebar.text_input(
+        "Objetivo",
+        value=st.session_state.perfil["objetivo"]
+    )
+
+ if st.sidebar.button("💾 Salvar Perfil"):
+    st.session_state.perfil["nome"] = nome_aluno
+    st.session_state.perfil["cidade"] = cidade_aluno
+    st.session_state.perfil["objetivo"] = objetivo_aluno
+    salvar_progresso()
+    st.sidebar.success("Perfil salvo!")
     st.sidebar.info(f"""
 👤 Nome: Bruno
 
