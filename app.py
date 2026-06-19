@@ -212,7 +212,7 @@ if st.sidebar.button("📊 Meu Perfil"):
         value=st.session_state.perfil["objetivo"]
     )
 
-     if st.sidebar.button("💾 Salvar Perfil"):
+    if st.sidebar.button("💾 Salvar Perfil"):
         st.session_state.perfil["nome"] = nome_aluno
         st.session_state.perfil["cidade"] = cidade_aluno
         st.session_state.perfil["objetivo"] = objetivo_aluno
