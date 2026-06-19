@@ -187,8 +187,8 @@ if st.sidebar.button("Comprar dica - 2 moedas"):
         st.sidebar.error("Moedas insuficientes")
         st.sidebar.markdown("---")
 
-if st.sidebar.button("📊 Meu Perfil"):
-    if "perfil" not in st.session_state:
+with st.sidebar.expander("📄 Meu Perfil", expanded=False):
+        if "perfil" not in st.session_state:
          st.session_state.perfil = {
             "nome": "",
             "cidade": "",
