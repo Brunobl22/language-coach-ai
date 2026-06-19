@@ -195,7 +195,7 @@ with st.sidebar.expander("📄 Meu Perfil", expanded=False):
             "objetivo": "",
             "erros_comuns": []
         }
-     st.sidebar.markdown("### 🧠 Memória do Aluno")
+    st.sidebar.markdown("### 🧠 Memória do Aluno")
 
            nome_aluno = st.sidebar.text_input(
                "Nome",
