@@ -212,15 +212,15 @@ if st.sidebar.button("📊 Meu Perfil"):
         value=st.session_state.perfil["objetivo"]
     )
 
- if st.sidebar.button("💾 Salvar Perfil"):
-    st.session_state.perfil["nome"] = nome_aluno
-    st.session_state.perfil["cidade"] = cidade_aluno
-    st.session_state.perfil["objetivo"] = objetivo_aluno
-    salvar_progresso()
-    st.sidebar.success("Perfil salvo!")
-    st.sidebar.info(f"""
+     if st.sidebar.button("💾 Salvar Perfil"):
+        st.session_state.perfil["nome"] = nome_aluno
+        st.session_state.perfil["cidade"] = cidade_aluno
+        st.session_state.perfil["objetivo"] = objetivo_aluno
+        salvar_progresso()
+        st.sidebar.success("Perfil salvo!")
+        
 👤 Nome: Bruno
-
+ 
 ⭐ XP Total: {st.session_state.xp}
 
 🏆 Nível: {nivel_usuario}
