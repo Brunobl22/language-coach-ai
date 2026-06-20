@@ -364,7 +364,7 @@ Formato obrigatório:
     resposta_texto = resposta.output_text
     audio = client.audio.speech.create(
     model="gpt-4o-mini-tts",
-    voice="cedar",
+    voice="alloy",
     input=resposta_texto,
     instructions="Fale em português brasileiro natural, como um professor brasileiro simpático, calmo e profissional. Não soe robótico nem como estrangeiro."
 )
