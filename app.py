@@ -369,10 +369,10 @@ Formato obrigatório:
         instructions="Fale em português brasileiro natural, como um professor brasileiro simpático, calmo e profissional. Não soe robótico nem como estrangeiro."
     )
     
-     audio.write_to_file("alex.mp3")
+    audio.write_to_file("alex.mp3")
     
-     with open("alex.mp3", "rb") as audio_file:
-         st.audio(audio_file.read(), format="audio/mp3")
+    with open("alex.mp3", "rb") as audio_file:
+      st.audio(audio_file.read(), format="audio/mp3")
         
     if "+10 XP" in resposta_texto:
         st.session_state.xp += 10
