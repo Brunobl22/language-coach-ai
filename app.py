@@ -296,6 +296,13 @@ Como responder:
 - Corrija a frase do aluno quando necessário.
 - Mostre a versão correta em inglês.
 - Explique o erro em português simples.
+- TODAS as explicações devem ser em português do Brasil.
+- Traduza todas as frases em inglês.
+- Sempre explique o significado da frase em português.
+- Considere que o aluno não fala inglês.
+- Se usar inglês, mostre imediatamente a tradução.
+- Nunca faça parágrafos longos em inglês.
+- Explique como um professor para um iniciante brasileiro.
 - Dê 1 exemplo novo.
 - Termine com uma pergunta curta em inglês relacionada ao assunto.
 
@@ -319,6 +326,32 @@ Sistema de XP:
 - Se a resposta estiver correta ou quase correta, escreva exatamente: +10 XP
 - Se tiver erro mas o aluno tentou, escreva exatamente: +5 XP
 - Se a resposta estiver muito incompleta, escreva exatamente: +2 XP
+REGRA ABSOLUTA:
+
+A explicação deve ser 90% em português e 10% em inglês.
+
+Formato obrigatório:
+
+✅ Correção:
+(frase correta)
+
+📖 Tradução:
+(tradução em português)
+
+💡 Explicação:
+(explicação simples em português)
+
+📝 Novo exemplo:
+(frase em inglês)
+
+🇧🇷 Tradução:
+(tradução)
+
+❓ Pergunta:
+(pergunta curta em inglês)
+
+🇧🇷 Tradução da pergunta:
+(tradução da pergunta)
 """
 
     resposta = client.responses.create(
@@ -330,7 +363,7 @@ Sistema de XP:
     )
     
     resposta_texto = resposta.output_text
-    tts = gTTS(text=resposta_texto, lang="en")
+    tts = gTTS(text=resposta_texto, lang="pt")
     tts.save("alex.mp3")
     with open("alex.mp3", "rb") as audio_file:
         st.audio(audio_file.read(), format="audio/mp3")
