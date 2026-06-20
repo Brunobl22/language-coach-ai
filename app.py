@@ -2,7 +2,6 @@ import streamlit as st
 from openai import OpenAI
 import json
 import os
-from gtts import gTTS
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 ARQUIVO = "progresso.json"
@@ -363,10 +362,17 @@ Formato obrigatório:
     )
     
     resposta_texto = resposta.output_text
-    tts = gTTS(text=resposta_texto, lang="pt", tld="com.br")
-    tts.save("alex.mp3")
-    with open("alex.mp3", "rb") as audio_file:
-        st.audio(audio_file.read(), format="audio/mp3")
+    audio = client.audio.speech.create(
+    model="gpt-4o-mini-tts",
+    voice="cedar",
+    input=resposta_texto,
+    instructions="Fale em português brasileiro natural, como um professor brasileiro simpático, calmo e profissional. Não soe robótico nem como estrangeiro."
+)
+
+audio.write_to_file("alex.mp3")
+
+with open("alex.mp3", "rb") as audio_file:
+    st.audio(audio_file.read(), format="audio/mp3")
     
     if "+10 XP" in resposta_texto:
         st.session_state.xp += 10
