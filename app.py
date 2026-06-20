@@ -233,14 +233,14 @@ for msg in st.session_state.mensagens:
      with st.chat_message(msg["role"]):
         st.write(msg["content"])
 
-   if msg["role"] == "assistant":
-       try:
-        tts = gTTS(text=msg["content"], lang="en")
-        tts.save("alex.mp3")
-        with open("alex.mp3", "rb") as audio_file:
-            st.audio(audio_file.read(), format="audio/mp3")
-       except:
-          pass
+    if msg["role"] == "assistant":
+           try:
+            tts = gTTS(text=msg["content"], lang="en")
+            tts.save("alex.mp3")
+            with open("alex.mp3", "rb") as audio_file:
+                st.audio(audio_file.read(), format="audio/mp3")
+           except:
+              pass
 texto = st.chat_input("Digite sua resposta ou mensagem...")  
 
 if texto:
