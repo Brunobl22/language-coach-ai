@@ -234,7 +234,7 @@ for msg in st.session_state.mensagens:
         st.write(msg["content"])
 
         if msg["role"] == "assistant":
-            try:
+           try:
             tts = gTTS(text=msg["content"], lang="en")
             tts.save("alex.mp3")
             with open("alex.mp3", "rb") as audio_file:
