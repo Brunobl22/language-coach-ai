@@ -233,7 +233,7 @@ for msg in st.session_state.mensagens:
      with st.chat_message(msg["role"]):
         st.write(msg["content"])
 
-    if msg["role"] == "assistant":
+      if msg["role"] == "assistant":
            try:
             tts = gTTS(text=msg["content"], lang="en")
             tts.save("alex.mp3")
