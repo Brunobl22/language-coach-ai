@@ -361,8 +361,8 @@ Formato obrigatório:
     ]
     )
     
-    resposta_texto = resposta.output_text
-    audio = client.audio.speech.create(
+resposta_texto = resposta.output_text
+audio = client.audio.speech.create(
     model="gpt-4o-mini-tts",
     voice="alloy",
     input=resposta_texto,
@@ -370,17 +370,17 @@ Formato obrigatório:
 
 st.audio(audio.read(), format="audio/mp3")
         
-    if "+10 XP" in resposta_texto:
-        st.session_state.xp += 10
-        st.session_state.moedas += 1
-        st.session_state.missoes += 1
-        salvar_progresso()
+if "+10 XP" in resposta_texto:
+    st.session_state.xp += 10
+    st.session_state.moedas += 1
+    st.session_state.missoes += 1
+    salvar_progresso()
     
-    elif "+5 XP" in resposta_texto:
-        st.session_state.xp += 5
-        st.session_state.moedas += 1
-        st.session_state.missoes += 1
-        salvar_progresso()
+elif "+5 XP" in resposta_texto:
+    st.session_state.xp += 5
+    st.session_state.moedas += 1
+    st.session_state.missoes += 1
+    salvar_progresso()
     
     st.session_state.mensagens.append(
     {"role": "assistant", "content": resposta_texto}
