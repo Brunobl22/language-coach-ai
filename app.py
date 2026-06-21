@@ -270,15 +270,16 @@ Pergunta:
     )
 
     resposta_texto = resposta.output_text
-    
-    try:
-    tts = gTTS(text=resposta_texto, lang="pt", tld="com.br")
-    tts.save("alex.mp3")
 
-    with open("alex.mp3", "rb") as audio_file:
-        st.audio(audio_file.read(), format="audio/mp3")
-except:
-    pass
+    try:
+        tts = gTTS(text=resposta_texto, lang="pt", tld="com.br")
+        tts.save("alex.mp3")
+    
+        with open("alex.mp3", "rb") as audio_file:
+            st.audio(audio_file.read(), format="audio/mp3")
+    
+    except:
+        pass
 
     if "+10 XP" in resposta_texto:
         st.session_state.xp += 10
