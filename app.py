@@ -278,8 +278,8 @@ Pergunta:
         with open("alex.mp3", "rb") as audio_file:
             st.audio(audio_file.read(), format="audio/mp3")
     
-    except:
-        pass
+   except Exception as e:
+        st.error(f"Erro no áudio: {e}")
 
     if "+10 XP" in resposta_texto:
         st.session_state.xp += 10
