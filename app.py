@@ -356,8 +356,8 @@ resposta = client.responses.create(
     model="gpt-5.4-mini",
     input=[
         {
-    "role": "system",
-    "content": prompt
+      "role": "system",
+      "content": prompt
         },
         *st.session_state.mensagens
     ]
