@@ -353,22 +353,15 @@ Formato obrigatório:
 (tradução da pergunta)
 """
 
-    resposta = client.responses.create(
+resposta = client.responses.create(
     model="gpt-5.4-mini",
     input=[
-    {"role": "system", "content": prompt},
-    *st.session_state.mensagens
+        {"role": "system", "content": prompt},
+        *st.session_state.mensagens
     ]
-    )
-    
-resposta_texto = resposta.output_text
-audio = client.audio.speech.create(
-    model="gpt-4o-mini-tts",
-    voice="alloy",
-    input=resposta_texto,
 )
 
-st.audio(audio.read(), format="audio/mp3")
+resposta_texto = resposta.output_text
         
 if "+10 XP" in resposta_texto:
     st.session_state.xp += 10
