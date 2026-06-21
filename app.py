@@ -356,8 +356,8 @@ resposta = client.responses.create(
     model="gpt-5.4-mini",
     input=[
         {
-      "role": "system",
-      "content": prompt
+       "role": "system",
+       "content": "Você é Teacher Alex, professor de inglês para brasileiros. Explique sempre em português simples e use inglês só nos exemplos."
         },
         *st.session_state.mensagens
     ]
