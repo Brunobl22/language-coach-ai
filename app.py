@@ -271,16 +271,16 @@ Pergunta:
 
     resposta_texto = resposta.output_text
 
+   if msg["role"] == "assistant":
     try:
-        tts = gTTS(text=resposta_texto, lang="pt", tld="com.br")
+        tts = gTTS(text=msg["content"], lang="pt", tld="com.br")
         tts.save("alex.mp3")
-    
+
         with open("alex.mp3", "rb") as audio_file:
             st.audio(audio_file.read(), format="audio/mp3")
-    
-   except Exception as e:
-        st.error(f"Erro no áudio: {e}")
 
+    except Exception as e:
+        st.error(f"Erro no áudio: {e}")
     if "+10 XP" in resposta_texto:
         st.session_state.xp += 10
         st.session_state.moedas += 1
