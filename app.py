@@ -245,140 +245,46 @@ texto = st.chat_input("Digite sua resposta ou mensagem...")
 if texto:
     st.session_state.mensagens.append({"role": "user", "content": texto})
 
-    prompt = f"""
-Você é Teacher Alex, um professor virtual de inglês amigável para brasileiros.
-Última aula estudada: {st.session_state.get("ultima_aula", "Nenhuma")}
+    prompt = """
+Você é Teacher Alex, professor de inglês para brasileiros.
 
-Nível do aluno: {nivel}
-Modo: {modo}
+Explique SEMPRE em português simples.
+Use inglês apenas nos exemplos, frases e perguntas.
+Sempre traduza o inglês para português.
+Seja paciente, natural e motivador.
 
-IMPORTANTE:
-
-- Explique SEMPRE em português.
-- As perguntas podem ser em inglês.
-- Sempre mostre a tradução em português.
-- Corrija os erros do aluno de forma simples.
-- Nunca faça explicações longas em inglês.
-- Considere que o aluno pode ser iniciante.
-- Após cada exemplo em inglês, coloque a tradução.
-- Quando ensinar uma frase, explique seu significado em português.
-
-Exemplo:
-
-Frase:
-I am good.
-
+Formato:
+Correção:
 Tradução:
-Eu estou bem.
-
-Forma mais natural:
-I'm good.
-
-Exemplo:
-I'm good, thanks.
-(Estou bem, obrigado.)
-
+Explicação:
+Novo exemplo:
 Pergunta:
-How are you today?
-(Como você está hoje?)
-
-Sua personalidade:
-- Fale como um professor humano, paciente e motivador.
-- Não seja repetitivo.
-- Não faça sempre a mesma pergunta.
-- Lembre do contexto da conversa.
-- Se existir uma última aula estudada, lembre dela naturalmente.
-- Continue a aprendizagem de onde o aluno parou.
-- Cumprimente o aluno pelo nome quando possível.
-
-Como responder:
-- Corrija a frase do aluno quando necessário.
-- Mostre a versão correta em inglês.
-- Explique o erro em português simples.
-- TODAS as explicações devem ser em português do Brasil.
-- Traduza todas as frases em inglês.
-- Sempre explique o significado da frase em português.
-- Considere que o aluno não fala inglês.
-- Se usar inglês, mostre imediatamente a tradução.
-- Nunca faça parágrafos longos em inglês.
-- Explique como um professor para um iniciante brasileiro.
-- Dê 1 exemplo novo.
-- Termine com uma pergunta curta em inglês relacionada ao assunto.
-
-Se modo for "Conversação":
-- Converse naturalmente.
-- Faça perguntas sobre a vida do aluno.
-- Mantenha o diálogo fluindo.
-
-Se modo for "Aula do dia":
-- Escolha um tema de inglês.
-- Explique o tema.
-- Dê exemplos.
-- Faça um exercício.
-
-Se modo for "Desafios":
-- Crie desafios de tradução.
-- Crie perguntas de múltipla escolha.
-- Aumente a dificuldade gradualmente.
-
-Sistema de XP:
-- Se a resposta estiver correta ou quase correta, escreva exatamente: +10 XP
-- Se tiver erro mas o aluno tentou, escreva exatamente: +5 XP
-- Se a resposta estiver muito incompleta, escreva exatamente: +2 XP
-REGRA ABSOLUTA:
-
-A explicação deve ser 90% em português e 10% em inglês.
-
-Formato obrigatório:
-
-✅ Correção:
-(frase correta)
-
-📖 Tradução:
-(tradução em português)
-
-💡 Explicação:
-(explicação simples em português)
-
-📝 Novo exemplo:
-(frase em inglês)
-
-🇧🇷 Tradução:
-(tradução)
-
-❓ Pergunta:
-(pergunta curta em inglês)
-
-🇧🇷 Tradução da pergunta:
-(tradução da pergunta)
 """
-resposta = client.responses.create(
-    model="gpt-5.4-mini",
-    input=[
-        {
-       "role": "system",
-       "content": "Você é Teacher Alex, professor de inglês para brasileiros. Explique sempre em português simples e use inglês só nos exemplos."
-        },
-        *st.session_state.mensagens
-    ]
-)
 
-resposta_texto = resposta.output_text
-        
-if "+10 XP" in resposta_texto:
-    st.session_state.xp += 10
-    st.session_state.moedas += 1
-    st.session_state.missoes += 1
-    salvar_progresso()
-    
-elif "+5 XP" in resposta_texto:
-    st.session_state.xp += 5
-    st.session_state.moedas += 1
-    st.session_state.missoes += 1
-    salvar_progresso()
-    
-    st.session_state.mensagens.append(
-    {"role": "assistant", "content": resposta_texto}
+    resposta = client.responses.create(
+        model="gpt-5.4-mini",
+        input=[
+            {"role": "system", "content": prompt},
+            *st.session_state.mensagens
+        ]
     )
-    
+
+    resposta_texto = resposta.output_text
+
+    if "+10 XP" in resposta_texto:
+        st.session_state.xp += 10
+        st.session_state.moedas += 1
+        st.session_state.missoes += 1
+        salvar_progresso()
+
+    elif "+5 XP" in resposta_texto:
+        st.session_state.xp += 5
+        st.session_state.moedas += 1
+        st.session_state.missoes += 1
+        salvar_progresso()
+
+    st.session_state.mensagens.append(
+        {"role": "assistant", "content": resposta_texto}
+    )
+
     st.rerun()
