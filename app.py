@@ -270,10 +270,10 @@ Pergunta:
     resposta_texto = resposta.output_text
 
     if "corretamente" in resposta_texto.lower() or "+10 xp" in resposta_texto.lower():
-    st.session_state.xp += 10
-    st.session_state.moedas += 1
-    st.session_state.missoes += 1
-    salvar_progresso()
+        st.session_state.xp += 10
+        st.session_state.moedas += 1
+        st.session_state.missoes += 1
+        salvar_progresso()
 
     elif "quase" in resposta_texto.lower() or "+5 xp" in resposta_texto.lower():
         st.session_state.xp += 5
