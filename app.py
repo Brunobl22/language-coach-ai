@@ -233,6 +233,7 @@ with st.sidebar.expander("📄 Meu Perfil", expanded=False):
         st.session_state.perfil["nome"] = nome_aluno
         st.session_state.perfil["cidade"] = cidade_aluno
         st.session_state.perfil["objetivo"] = objetivo_aluno
+        salvar_progresso()
         st.success("Perfil salvo!")
     
 nivel = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
