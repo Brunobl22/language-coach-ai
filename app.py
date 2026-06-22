@@ -89,12 +89,13 @@ if st.sidebar.button("Entrar / Cadastrar"):
         st.session_state.ultimo_dia = progresso.get("ultimo_dia", "")
         st.session_state.ultima_aula = progresso.get("ultima_aula", "")
         st.session_state.mensagens = progresso.get("mensagens", [])
-        st.session_state.perfil = progresso.get("perfil", {
-             "nome": "",
-             "cidade": "",
-             "objetivo": "",
-             "erros_comuns": []
-})
+        perfil_salvo = progresso.get("perfil", {})
+        st.session_state.perfil = {
+            "nome": perfil_salvo.get("nome", ""),
+            "cidade": perfil_salvo.get("cidade", ""),
+            "objetivo": perfil_salvo.get("objetivo", ""),
+            "erros_comuns": perfil_salvo.get("erros_comuns", [])
+}
         st.sidebar.success("Login realizado!")
         st.session_state.logado = True
         st.session_state.usuario = usuario
