@@ -42,6 +42,7 @@ def salvar_progresso():
         "missoes": st.session_state.missoes,
         "streak": st.session_state.streak,
         "ultima_aula": st.session_state.get("ultima_aula", ""),
+        "mensagens": st.session_state.mensagens,
         "perfil": st.session_state.get("perfil", {
         "nome": "",
         "cidade": "",
@@ -83,6 +84,7 @@ if st.sidebar.button("Entrar / Cadastrar"):
         st.session_state.missoes = progresso["missoes"]
         st.session_state.streak = progresso["streak"]
         st.session_state.ultima_aula = progresso.get("ultima_aula", "")
+        st.session_state.mensagens = progresso.get("mensagens", [])
         st.session_state.perfil = progresso.get("perfil", {
              "nome": "",
              "cidade": "",
