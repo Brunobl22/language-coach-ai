@@ -2,6 +2,7 @@ import streamlit as st
 from openai import OpenAI
 import json
 import os
+from datetime import date
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 ARQUIVO = "progresso.json"
@@ -19,6 +20,7 @@ def progresso_padrao():
         "vidas": 5,
         "missoes": 0,
         "streak": 1,
+        "ultimo_dia": "",
         "ultima_aula": "",
         "perfil": {
         "nome": "",
@@ -42,6 +44,7 @@ def salvar_progresso():
         "missoes": st.session_state.missoes,
         "streak": st.session_state.streak,
         "ultima_aula": st.session_state.get("ultima_aula", ""),
+        "ultimo_dia": st.session_state.get("ultimo_dia", ""),
         "mensagens": st.session_state.mensagens,
         "perfil": st.session_state.get("perfil", {
         "nome": "",
@@ -83,6 +86,7 @@ if st.sidebar.button("Entrar / Cadastrar"):
         st.session_state.vidas = progresso["vidas"]
         st.session_state.missoes = progresso["missoes"]
         st.session_state.streak = progresso["streak"]
+        st.session_state.ultimo_dia = progresso.get("ultimo_dia", "")
         st.session_state.ultima_aula = progresso.get("ultima_aula", "")
         st.session_state.mensagens = progresso.get("mensagens", [])
         st.session_state.perfil = progresso.get("perfil", {
@@ -124,6 +128,9 @@ if "mensagens" not in st.session_state:
 if "streak" not in st.session_state:
     st.session_state.streak = 1
 
+if "ultimo_dia" not in st.session_state:
+    st.session_state.ultimo_dia = ""
+
 if "vidas" not in st.session_state:
     st.session_state.vidas = 5
 
@@ -137,6 +144,15 @@ st.sidebar.write(f"🎯 Missões feitas: {st.session_state.missoes}/5")
 
 if st.session_state.missoes >= 5:
     st.sidebar.success("🎁 Missão diária completa!")
+
+hoje = str(date.today())
+
+if st.session_state.ultimo_dia != hoje:
+    st.session_state.streak += 1
+    st.session_state.ultimo_dia = hoje
+    salvar_progresso()
+
+st.sidebar.write(f"🔥 Streak diária: {st.session_state.streak} dias")
 
 xp = st.session_state.xp
 nivel_usuario = xp // 100 + 1
