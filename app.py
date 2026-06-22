@@ -273,7 +273,7 @@ Pergunta:
 
     st.session_state.xp += 10
     st.session_state.moedas += 1
-    st.session_state.missoes += 1
+    st.session_state.missoes = min(st.session_state.missoes + 1, 5)
     salvar_progresso()
 
     st.session_state.mensagens.append(
