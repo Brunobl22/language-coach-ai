@@ -226,9 +226,10 @@ with st.sidebar.expander("📄 Meu Perfil", expanded=False):
     )
 
     objetivo_aluno = st.text_input(
-        "Objetivo",
-        value=st.session_state.perfil["objetivo"]
-    )
+    "Objetivo",
+    value=st.session_state.perfil.get("objetivo", ""),
+    key="objetivo_input"
+)
 
     if st.button("💾 Salvar Perfil"):
         st.session_state.perfil["nome"] = nome_aluno
