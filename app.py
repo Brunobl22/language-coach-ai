@@ -228,15 +228,13 @@ with st.sidebar.expander("📄 Meu Perfil", expanded=False):
 
     objetivo_aluno = st.text_input(
     "Objetivo",
-    value=st.session_state.perfil.get("objetivo", ""),
-    key="objetivo_perfil_input"
+    st.session_state.perfil["objetivo"]
 )
 
     if st.button("💾 Salvar Perfil"):
         st.session_state.perfil["nome"] = nome_aluno
         st.session_state.perfil["cidade"] = cidade_aluno
-        st.session_state.perfil["objetivo"] = st.session_state.objetivo_perfil_input
-        st.write(st.session_state.perfil)
+        st.session_state.perfil["objetivo"] = objetivo_aluno
         salvar_progresso()
         st.success("Perfil salvo!")
     
