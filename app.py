@@ -261,8 +261,14 @@ texto = st.chat_input("Digite sua resposta ou mensagem...")
 if texto:
     st.session_state.mensagens.append({"role": "user", "content": texto})
 
-    prompt = """
+    prompt = f"""
 Você é Teacher Alex, professor de inglês para brasileiros.
+
+Nome do aluno: {st.session_state.perfil["nome"]}
+Cidade: {st.session_state.perfil["cidade"]}
+Objetivo: {st.session_state.perfil["objetivo"]}
+
+Use essas informações para personalizar as aulas e exemplos.
 
 Explique SEMPRE em português simples.
 Use inglês apenas nos exemplos, frases e perguntas.
