@@ -96,6 +96,7 @@ if st.sidebar.button("Entrar / Cadastrar"):
             "objetivo": perfil_salvo.get("objetivo", ""),
             "erros_comuns": perfil_salvo.get("erros_comuns", [])
 }
+        st.write("OBJETIVO CARREGADO:", perfil_salvo.get("objetivo", "VAZIO"))
         st.sidebar.success("Login realizado!")
         st.session_state.logado = True
         st.session_state.usuario = usuario
