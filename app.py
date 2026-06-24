@@ -35,8 +35,17 @@ def progresso_padrao():
  }
   }
 def salvar_usuarios():
-    with open(ARQUIVO_USUARIOS, "w") as f:
-        json.dump(usuarios, f)
+    if "usuario" not in st.session_state:
+        return
+
+    usuario_atual = st.session_state.usuario
+    dados_usuario = usuarios[usuario_atual]
+
+    supabase.table("usuarios").upsert({
+        "usuario": usuario_atual,
+        "senha": dados_usuario["senha"],
+        "progresso": dados_usuario["progresso"]
+    }).execute()
 
 def salvar_progresso():
     if "usuario" not in st.session_state:
