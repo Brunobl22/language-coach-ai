@@ -1,10 +1,15 @@
 import streamlit as st
 from openai import OpenAI
+from supabase import create_client
 import json
 import os
 from datetime import date
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+supabase = create_client(
+    st.secrets["SUPABASE_URL"],
+    st.secrets["SUPABASE_KEY"]
+)
 ARQUIVO = "progresso.json"
 ARQUIVO_USUARIOS = "usuarios.json"
 
