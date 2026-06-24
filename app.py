@@ -69,11 +69,19 @@ def salvar_progresso():
  }
     salvar_usuarios()
 
-if os.path.exists(ARQUIVO_USUARIOS):
-    with open(ARQUIVO_USUARIOS, "r") as f:
-        usuarios = json.load(f)
-else:
-    usuarios = {}
+usuarios = {}
+
+try:
+    resposta = supabase.table("usuarios").select("*").execute()
+
+    for item in resposta.data:
+        usuarios[item["usuario"]] = {
+            "senha": item["senha"],
+            "progresso": item["progresso"]
+        }
+
+except Exception as e:
+    st.sidebar.error("Erro ao carregar usuários do banco")
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("🔐 Login")
