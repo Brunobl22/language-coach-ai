@@ -161,6 +161,7 @@ nivel_usuario = xp // 100 + 1
 progresso = (xp % 100) / 100
 
 st.sidebar.write(f"⭐ XP: {xp}")
+st.sidebar.write(f"🪙 Moedas: {st.session_state.moedas}")
 st.sidebar.write(f"🏆 Nível: {nivel_usuario}")
 st.sidebar.progress(progresso)
 faltam = 100 - (xp % 100)
