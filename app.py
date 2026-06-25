@@ -81,12 +81,13 @@ try:
 
 except Exception as e:
     st.sidebar.error("Erro ao carregar usuários do banco")
+    
+if not st.session_state.get("logado", False):
+    st.sidebar.markdown("---")
+    st.sidebar.subheader("🔐 Login")
 
-st.sidebar.markdown("---")
-st.sidebar.subheader("🔐 Login")
-
-usuario = st.sidebar.text_input("Usuário")
-senha = st.sidebar.text_input("Senha", type="password")
+    usuario = st.sidebar.text_input("Usuário")
+    senha = st.sidebar.text_input("Senha", type="password")
 
 if st.sidebar.button("Entrar / Cadastrar"):
     if not usuario or not senha:
@@ -131,6 +132,7 @@ if st.sidebar.button("Entrar / Cadastrar"):
 
         st.sidebar.success("Usuário criado!")
         st.session_state.logado = True
+        st.session_state.usuario = usuario
         st.rerun()
 
 st.set_page_config(page_title="AI Language Coach", layout="centered")
