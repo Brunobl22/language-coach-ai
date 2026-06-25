@@ -51,7 +51,7 @@ def salvar_progresso():
         return
     usuario_atual = st.session_state.usuario
     if usuario_atual not in usuarios:
-    return
+        return
     usuarios[usuario_atual]["progresso"] = {
         "xp": st.session_state.xp,
         "moedas": st.session_state.moedas,
