@@ -41,11 +41,10 @@ def salvar_usuarios():
     usuario_atual = st.session_state.usuario
     dados_usuario = usuarios[usuario_atual]
 
-    supabase.table("usuarios").upsert({
-        "usuario": usuario_atual,
+    supabase.table("usuarios").update({
         "senha": dados_usuario["senha"],
         "progresso": dados_usuario["progresso"]
-    }).execute()
+    }).eq("usuario", usuario_atual).execute()
 
 def salvar_progresso():
     if "usuario" not in st.session_state:
