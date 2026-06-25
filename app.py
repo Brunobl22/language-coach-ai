@@ -90,41 +90,49 @@ usuario = st.sidebar.text_input("Usuário")
 senha = st.sidebar.text_input("Senha", type="password")
 
 if st.sidebar.button("Entrar / Cadastrar"):
-    if usuario not in usuarios:
+    if not usuario or not senha:
+        st.sidebar.error("Digite usuário e senha")
+
+    elif usuario in usuarios:
+        if usuarios[usuario]["senha"] == senha:
+            progresso = usuarios[usuario].get("progresso", progresso_padrao())
+
+            st.session_state.xp = progresso["xp"]
+            st.session_state.moedas = progresso["moedas"]
+            st.session_state.vidas = progresso["vidas"]
+            st.session_state.missoes = progresso["missoes"]
+            st.session_state.streak = progresso["streak"]
+            st.session_state.ultimo_dia = progresso.get("ultimo_dia", "")
+            st.session_state.ultima_aula = progresso.get("ultima_aula", "")
+            st.session_state.mensagens = progresso.get("mensagens", [])
+
+            perfil_salvo = progresso.get("perfil", {})
+            st.session_state.perfil = {
+                "nome": perfil_salvo.get("nome", ""),
+                "cidade": perfil_salvo.get("cidade", ""),
+                "objetivo": perfil_salvo.get("objetivo", ""),
+                "erros_comuns": perfil_salvo.get("erros_comuns", [])
+            }
+
+            st.sidebar.success("Login realizado!")
+            st.session_state.logado = True
+            st.session_state.usuario = usuario
+            st.rerun()
+        else:
+            st.sidebar.error("Senha incorreta")
+
+    else:
         usuarios[usuario] = {
             "senha": senha,
             "progresso": progresso_padrao()
         }
+
+        st.session_state.usuario = usuario
         salvar_usuarios()
+
         st.sidebar.success("Usuário criado!")
         st.session_state.logado = True
-        st.session_state.usuario = usuario
         st.rerun()
-
-    elif usuarios[usuario]["senha"] == senha:
-        progresso = usuarios[usuario].get("progresso", progresso_padrao())
-        st.session_state.xp = progresso["xp"]
-        st.session_state.moedas = progresso["moedas"]
-        st.session_state.vidas = progresso["vidas"]
-        st.session_state.missoes = progresso["missoes"]
-        st.session_state.streak = progresso["streak"]
-        st.session_state.ultimo_dia = progresso.get("ultimo_dia", "")
-        st.session_state.ultima_aula = progresso.get("ultima_aula", "")
-        st.session_state.mensagens = progresso.get("mensagens", [])
-        perfil_salvo = progresso.get("perfil", {})
-        st.session_state.perfil = {
-            "nome": perfil_salvo.get("nome", ""),
-            "cidade": perfil_salvo.get("cidade", ""),
-            "objetivo": perfil_salvo.get("objetivo", ""),
-            "erros_comuns": perfil_salvo.get("erros_comuns", [])
-}
-        st.sidebar.success("Login realizado!")
-        st.session_state.logado = True
-        st.session_state.usuario = usuario
-        st.rerun()
-
-    else:
-        st.sidebar.error("Senha incorreta")
 
 st.set_page_config(page_title="AI Language Coach", layout="centered")
 
