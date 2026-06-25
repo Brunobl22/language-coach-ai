@@ -137,6 +137,15 @@ if not st.session_state.get("logado", False):
         st.session_state.usuario = usuario
         st.rerun()
 
+    else:
+    st.sidebar.markdown("---")
+    st.sidebar.success(f"Logado como: {st.session_state.usuario}")
+
+    if st.sidebar.button("Sair"):
+        st.session_state.logado = False
+        st.session_state.usuario = ""
+        st.rerun()    
+
 st.set_page_config(page_title="AI Language Coach", layout="centered")
 
 st.title("🌍 AI Language Coach")
