@@ -87,10 +87,23 @@ except Exception as e:
 if st.session_state.get("logado", False):
     st.sidebar.success(f"Logado como: {st.session_state.usuario}")
 
-    if st.sidebar.button("Sair"):
-        st.session_state.logado = False
-        st.session_state.usuario = ""
-        st.rerun()
+if st.sidebar.button("Sair"):
+    for chave in [
+        "logado",
+        "usuario",
+        "xp",
+        "moedas",
+        "vidas",
+        "missoes",
+        "streak",
+        "ultimo_dia",
+        "ultima_aula",
+        "mensagens",
+        "perfil"
+    ]:
+        if chave in st.session_state:
+            del st.session_state[chave]
+    st.rerun()
 
 if not st.session_state.get("logado", False):
     st.sidebar.markdown("---")
