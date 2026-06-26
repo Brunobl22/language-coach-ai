@@ -84,6 +84,14 @@ try:
 except Exception as e:
     st.sidebar.error("Erro ao carregar usuários do banco")
     
+if st.session_state.get("logado", False):
+    st.sidebar.success(f"Logado como: {st.session_state.usuario}")
+
+    if st.sidebar.button("Sair"):
+        st.session_state.logado = False
+        st.session_state.usuario = ""
+        st.rerun()
+
 if not st.session_state.get("logado", False):
     st.sidebar.markdown("---")
     st.sidebar.subheader("🔐 Login")
