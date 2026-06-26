@@ -103,7 +103,7 @@ if st.sidebar.button("Sair"):
     ]:
         if chave in st.session_state:
             del st.session_state[chave]
-     st.rerun()
+    st.rerun()
 
 if not st.session_state.get("logado", False):
     st.sidebar.markdown("---")
