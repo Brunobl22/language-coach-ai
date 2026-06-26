@@ -3,12 +3,53 @@ from openai import OpenAI
 from supabase import create_client
 from datetime import date
 
-st.set_page_config(page_title="AI Language Coach", layout="centered")
+st.set_page_config(page_title="AI Language Coach", page_icon="🌍", layout="wide")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
 TABELA = "usuarios"
+
+
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(135deg, #0f172a 0%, #111827 50%, #1e1b4b 100%);
+    color: white;
+}
+
+.main-card {
+    background: rgba(255,255,255,0.08);
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.teacher-card {
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    padding: 25px;
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.metric-card {
+    background: rgba(255,255,255,0.10);
+    padding: 15px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.chat-box {
+    background: rgba(255,255,255,0.08);
+    padding: 18px;
+    border-radius: 18px;
+    margin-bottom: 12px;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 def progresso_padrao():
@@ -19,7 +60,6 @@ def progresso_padrao():
         "missoes": 0,
         "streak": 1,
         "ultimo_dia": "",
-        "ultima_aula": "",
         "mensagens": [],
         "perfil": {
             "nome": "",
@@ -39,57 +79,63 @@ def carregar_usuarios():
                 "senha": item["senha"],
                 "progresso": item.get("progresso") or progresso_padrao()
             }
-    except Exception:
-        st.sidebar.error("Erro ao carregar usuários do banco")
+    except Exception as e:
+        st.sidebar.error("Erro ao carregar usuários do Supabase")
     return usuarios
 
 
 def salvar_usuario(usuario, senha, progresso):
-    supabase.table(TABELA).upsert({
-        "usuario": usuario,
-        "senha": senha,
-        "progresso": progresso
-    }).execute()
+    try:
+        supabase.table(TABELA).upsert(
+            {
+                "usuario": usuario,
+                "senha": senha,
+                "progresso": progresso
+            },
+            on_conflict="usuario"
+        ).execute()
+    except Exception as e:
+        st.error("Erro ao salvar no Supabase. Confira se a coluna usuario está com regra UNIQUE.")
+        st.stop()
 
 
 def carregar_progresso(progresso):
-    st.session_state.xp = progresso.get("xp", 0)
-    st.session_state.moedas = progresso.get("moedas", 0)
-    st.session_state.vidas = progresso.get("vidas", 5)
-    st.session_state.missoes = progresso.get("missoes", 0)
-    st.session_state.streak = progresso.get("streak", 1)
-    st.session_state.ultimo_dia = progresso.get("ultimo_dia", "")
-    st.session_state.ultima_aula = progresso.get("ultima_aula", "")
-    st.session_state.mensagens = progresso.get("mensagens", [])
-    st.session_state.perfil = progresso.get("perfil", progresso_padrao()["perfil"])
+    padrao = progresso_padrao()
+
+    st.session_state.xp = progresso.get("xp", padrao["xp"])
+    st.session_state.moedas = progresso.get("moedas", padrao["moedas"])
+    st.session_state.vidas = progresso.get("vidas", padrao["vidas"])
+    st.session_state.missoes = progresso.get("missoes", padrao["missoes"])
+    st.session_state.streak = progresso.get("streak", padrao["streak"])
+    st.session_state.ultimo_dia = progresso.get("ultimo_dia", padrao["ultimo_dia"])
+    st.session_state.mensagens = progresso.get("mensagens", padrao["mensagens"])
+    st.session_state.perfil = progresso.get("perfil", padrao["perfil"])
 
 
-def salvar_progresso():
-    if not st.session_state.get("logado"):
-        return
-
-    progresso = {
+def montar_progresso():
+    return {
         "xp": st.session_state.get("xp", 0),
         "moedas": st.session_state.get("moedas", 0),
         "vidas": st.session_state.get("vidas", 5),
         "missoes": st.session_state.get("missoes", 0),
         "streak": st.session_state.get("streak", 1),
         "ultimo_dia": st.session_state.get("ultimo_dia", ""),
-        "ultima_aula": st.session_state.get("ultima_aula", ""),
         "mensagens": st.session_state.get("mensagens", []),
         "perfil": st.session_state.get("perfil", progresso_padrao()["perfil"])
     }
 
-    senha = st.session_state.get("senha", "")
-    usuario = st.session_state.get("usuario", "")
 
-    if usuario:
-        salvar_usuario(usuario, senha, progresso)
+def salvar_progresso():
+    if st.session_state.get("logado") and st.session_state.get("usuario"):
+        salvar_usuario(
+            st.session_state.usuario,
+            st.session_state.senha,
+            montar_progresso()
+        )
 
 
-def fazer_logout():
-    for chave in list(st.session_state.keys()):
-        del st.session_state[chave]
+def logout():
+    st.session_state.clear()
     st.rerun()
 
 
@@ -98,177 +144,205 @@ usuarios = carregar_usuarios()
 if "logado" not in st.session_state:
     st.session_state.logado = False
 
-if st.session_state.logado:
-    st.sidebar.success(f"Logado como: {st.session_state.usuario}")
 
-    if st.sidebar.button("Sair"):
-        fazer_logout()
+with st.sidebar:
+    st.markdown("## 🌍 AI Coach")
 
-if not st.session_state.logado:
-    st.sidebar.markdown("---")
-    st.sidebar.subheader("🔐 Login")
+    if st.session_state.logado:
+        st.success(f"Logado como: {st.session_state.usuario}")
 
-    usuario = st.sidebar.text_input("Usuário")
-    senha = st.sidebar.text_input("Senha", type="password")
+        if st.button("Sair"):
+            logout()
 
-    if st.sidebar.button("Entrar / Cadastrar"):
-        if not usuario or not senha:
-            st.sidebar.error("Digite usuário e senha")
+    else:
+        st.markdown("### 🔐 Entrar ou cadastrar")
+        usuario = st.text_input("Usuário")
+        senha = st.text_input("Senha", type="password")
 
-        elif usuario in usuarios:
-            if usuarios[usuario]["senha"] == senha:
+        if st.button("Entrar / Cadastrar"):
+            if not usuario or not senha:
+                st.error("Digite usuário e senha")
+
+            elif usuario in usuarios:
+                if usuarios[usuario]["senha"] == senha:
+                    st.session_state.logado = True
+                    st.session_state.usuario = usuario
+                    st.session_state.senha = senha
+                    carregar_progresso(usuarios[usuario]["progresso"])
+                    st.rerun()
+                else:
+                    st.error("Senha incorreta")
+
+            else:
+                progresso = progresso_padrao()
+                salvar_usuario(usuario, senha, progresso)
+
                 st.session_state.logado = True
                 st.session_state.usuario = usuario
                 st.session_state.senha = senha
-                carregar_progresso(usuarios[usuario]["progresso"])
-                st.sidebar.success("Login realizado!")
+                carregar_progresso(progresso)
                 st.rerun()
-            else:
-                st.sidebar.error("Senha incorreta")
 
-        else:
-            progresso = progresso_padrao()
-            salvar_usuario(usuario, senha, progresso)
+    if "xp" not in st.session_state:
+        carregar_progresso(progresso_padrao())
 
-            st.session_state.logado = True
-            st.session_state.usuario = usuario
-            st.session_state.senha = senha
-            carregar_progresso(progresso)
+    nivel_atual = max(1, st.session_state.xp // 100 + 1)
+    progresso_nivel = (st.session_state.xp % 100) / 100
+    xp_restante = 100 - (st.session_state.xp % 100)
 
-            st.sidebar.success("Usuário criado!")
+    st.markdown("---")
+    st.markdown("### 📊 Seu progresso")
+    st.write(f"🎯 Missões feitas: *{st.session_state.missoes}/5*")
+    st.write(f"🔥 Streak diária: *{st.session_state.streak} dias*")
+    st.write(f"⭐ XP: *{st.session_state.xp}*")
+    st.write(f"🪙 Moedas: *{st.session_state.moedas}*")
+    st.write(f"🏆 Nível: *{nivel_atual}*")
+    st.progress(progresso_nivel)
+    st.caption(f"Faltam {xp_restante} XP para o próximo nível")
+
+    st.markdown("---")
+    st.markdown("### 🛒 Loja")
+
+    if st.button("Comprar vida extra - 3 moedas"):
+        if st.session_state.moedas >= 3:
+            st.session_state.moedas -= 3
+            st.session_state.vidas += 1
+            salvar_progresso()
+            st.success("Vida comprada!")
             st.rerun()
+        else:
+            st.error("Moedas insuficientes")
+
+    if st.button("Comprar dica - 2 moedas"):
+        if st.session_state.moedas >= 2:
+            st.session_state.moedas -= 2
+            salvar_progresso()
+            st.info("Dica: responda com frases curtas em inglês.")
+        else:
+            st.error("Moedas insuficientes")
+
+    with st.expander("📄 Meu Perfil"):
+        nome = st.text_input("Nome", value=st.session_state.perfil.get("nome", ""))
+        cidade = st.text_input("Cidade", value=st.session_state.perfil.get("cidade", ""))
+        objetivo = st.text_area("Objetivo", value=st.session_state.perfil.get("objetivo", ""))
+
+        if st.button("Salvar perfil"):
+            st.session_state.perfil["nome"] = nome
+            st.session_state.perfil["cidade"] = cidade
+            st.session_state.perfil["objetivo"] = objetivo
+            salvar_progresso()
+            st.success("Perfil salvo!")
 
 
-if "xp" not in st.session_state:
-    carregar_progresso(progresso_padrao())
+col_esq, col_dir = st.columns([1, 2])
 
+with col_esq:
+    st.markdown("""
+    <div class="teacher-card">
+        <h1>🤖 Teacher Alex</h1>
+        <p>Seu professor virtual de inglês do dia a dia.</p>
+        <p>Aprenda conversando, ganhe XP, moedas e evolua seu nível.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-st.sidebar.markdown("---")
-st.sidebar.write(f"🎯 Missões feitas: {st.session_state.missoes}/5")
-st.sidebar.write(f"🔥 Streak diária: {st.session_state.streak} dias")
-st.sidebar.write(f"⭐ XP: {st.session_state.xp}")
-st.sidebar.write(f"🪙 Moedas: {st.session_state.moedas}")
-
-nivel = max(1, st.session_state.xp // 100 + 1)
-xp_restante = 100 - (st.session_state.xp % 100)
-
-st.sidebar.write(f"🏆 Nível: {nivel}")
-st.sidebar.progress((st.session_state.xp % 100) / 100)
-st.sidebar.write(f"Faltam {xp_restante} XP para o próximo nível")
-
-st.sidebar.markdown("### 🛒 Loja")
-
-if st.sidebar.button("Comprar vida extra - 3 moedas"):
-    if st.session_state.moedas >= 3:
-        st.session_state.moedas -= 3
-        st.session_state.vidas += 1
-        salvar_progresso()
-        st.sidebar.success("Vida extra comprada!")
-        st.rerun()
-    else:
-        st.sidebar.error("Moedas insuficientes")
-
-if st.sidebar.button("Comprar dica - 2 moedas"):
-    if st.session_state.moedas >= 2:
-        st.session_state.moedas -= 2
-        salvar_progresso()
-        st.sidebar.info("Dica: tente responder com frases curtas em inglês.")
-        st.rerun()
-    else:
-        st.sidebar.error("Moedas insuficientes")
-
-with st.sidebar.expander("📄 Meu Perfil"):
-    nome = st.text_input("Nome", value=st.session_state.perfil.get("nome", ""))
-    cidade = st.text_input("Cidade", value=st.session_state.perfil.get("cidade", ""))
-    objetivo = st.text_area("Objetivo", value=st.session_state.perfil.get("objetivo", ""))
-
-    if st.button("Salvar perfil"):
-        st.session_state.perfil["nome"] = nome
-        st.session_state.perfil["cidade"] = cidade
-        st.session_state.perfil["objetivo"] = objetivo
-        salvar_progresso()
-        st.success("Perfil salvo!")
-
-
-st.title("🌍 AI Language Coach")
-
-col1, col2 = st.columns([1, 4])
-
-with col1:
     st.image(
         "https://api.dicebear.com/7.x/bottts/png?seed=TeacherAlex",
-        width=120
+        width=220
     )
 
-with col2:
-    st.markdown("## 👨‍🏫 Teacher Alex")
-    st.write("Seu professor virtual de inglês do dia a dia.")
-
-st.write("Converse com um professor de inglês do dia a dia com IA.")
-
-nivel_escolhido = st.selectbox("Seu nível:", ["Iniciante", "Intermediário", "Avançado"])
-modo = st.selectbox("Modo:", ["Conversação", "Correção", "Vocabulário", "Treino rápido"])
-
-st.markdown("## 👨‍🏫 Teacher Alex")
-
-if not st.session_state.mensagens:
-    st.session_state.mensagens.append({
-        "role": "assistant",
-        "content": "Olá! Eu sou seu professor de inglês. Vamos praticar conversa real."
-    })
-
-for msg in st.session_state.mensagens:
-    if msg["role"] == "user":
-        st.chat_message("user").write(msg["content"])
-    else:
-        st.chat_message("assistant").write(msg["content"])
+    st.markdown(f"""
+    <div class="metric-card">🏆 Nível atual: <b>{nivel_atual}</b></div>
+    <div class="metric-card">⭐ XP: <b>{st.session_state.xp}</b></div>
+    <div class="metric-card">🪙 Moedas: <b>{st.session_state.moedas}</b></div>
+    <div class="metric-card">❤️ Vidas: <b>{st.session_state.vidas}</b></div>
+    """, unsafe_allow_html=True)
 
 
-mensagem = st.chat_input("Digite sua resposta ou mensagem...")
+with col_dir:
+    st.markdown('<div class="main-card">', unsafe_allow_html=True)
 
-if mensagem:
-    st.session_state.mensagens.append({"role": "user", "content": mensagem})
+    st.title("🌍 AI Language Coach")
+    st.subheader("Aprenda inglês conversando com IA")
 
-    prompt_sistema = f"""
+    if not st.session_state.logado:
+        st.warning("Faça login na barra lateral para salvar seu progresso.")
+
+    nivel_escolhido = st.selectbox(
+        "Seu nível:",
+        ["Iniciante", "Intermediário", "Avançado"]
+    )
+
+    modo = st.selectbox(
+        "Modo:",
+        ["Conversação", "Correção", "Vocabulário", "Treino rápido"]
+    )
+
+    if not st.session_state.mensagens:
+        st.session_state.mensagens.append({
+            "role": "assistant",
+            "content": "Olá! Eu sou o Teacher Alex. Vamos praticar inglês de um jeito simples e real."
+        })
+
+    for msg in st.session_state.mensagens:
+        if msg["role"] == "user":
+            st.chat_message("user").write(msg["content"])
+        else:
+            st.chat_message("assistant").write(msg["content"])
+
+    mensagem = st.chat_input("Digite sua resposta ou mensagem...")
+
+    if mensagem:
+        st.session_state.mensagens.append({
+            "role": "user",
+            "content": mensagem
+        })
+
+        prompt_sistema = f"""
 Você é Teacher Alex, um professor de inglês amigável para brasileiros.
-O aluno está no nível {nivel_escolhido}.
+
+O aluno está no nível: {nivel_escolhido}.
 Modo atual: {modo}.
 
-Responda em português simples, mas ensine inglês.
-Corrija erros com calma.
-Dê exemplos curtos.
-Incentive o aluno.
-Nunca seja rude.
+Regras:
+- Responda em português simples.
+- Ensine inglês do dia a dia.
+- Corrija o aluno com calma.
+- Dê exemplos curtos.
+- Incentive o aluno.
+- Não seja rude.
+- Se o aluno escrever algo em inglês errado, corrija e explique.
 """
 
-    resposta = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": prompt_sistema},
-            *st.session_state.mensagens[-10:]
-        ]
-    )
+        resposta = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": prompt_sistema},
+                *st.session_state.mensagens[-10:]
+            ]
+        )
 
-    texto = resposta.choices[0].message.content
+        texto = resposta.choices[0].message.content
 
-    st.session_state.mensagens.append({
-        "role": "assistant",
-        "content": texto
-    })
+        st.session_state.mensagens.append({
+            "role": "assistant",
+            "content": texto
+        })
 
-    hoje = str(date.today())
+        hoje = str(date.today())
 
-    if st.session_state.ultimo_dia != hoje:
-        st.session_state.streak += 1
-        st.session_state.ultimo_dia = hoje
+        if st.session_state.ultimo_dia != hoje:
+            st.session_state.streak += 1
+            st.session_state.ultimo_dia = hoje
 
-    st.session_state.xp += 10
-    st.session_state.moedas += 1
-    st.session_state.missoes += 1
+        st.session_state.xp += 10
+        st.session_state.moedas += 1
+        st.session_state.missoes += 1
 
-    if st.session_state.missoes >= 5:
-        st.session_state.missoes = 0
-        st.session_state.moedas += 5
+        if st.session_state.missoes >= 5:
+            st.session_state.missoes = 0
+            st.session_state.moedas += 5
 
-    salvar_progresso()
-    st.rerun()
+        salvar_progresso()
+        st.rerun()
+
+    st.markdown("</div>", unsafe_allow_html=True)
