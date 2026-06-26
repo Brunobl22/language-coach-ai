@@ -104,7 +104,7 @@ if st.session_state.get("logado", False):
     ]:
         if chave in st.session_state:
             del st.session_state[chave]
-     st.rerun()
+    st.rerun()
 
 if not st.session_state.get("logado", False):
     st.sidebar.markdown("---")
