@@ -85,9 +85,10 @@ except Exception as e:
     st.sidebar.error("Erro ao carregar usuários do banco")
     
 if st.session_state.get("logado", False):
+ if st.session_state.get("usuario"):
     st.sidebar.success(f"Logado como: {st.session_state.usuario}")
 
-if st.sidebar.button("Sair"):
+ if st.sidebar.button("Sair"):
     for chave in [
         "logado",
         "usuario",
@@ -103,7 +104,7 @@ if st.sidebar.button("Sair"):
     ]:
         if chave in st.session_state:
             del st.session_state[chave]
-    st.rerun()
+     st.rerun()
 
 if not st.session_state.get("logado", False):
     st.sidebar.markdown("---")
