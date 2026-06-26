@@ -113,7 +113,7 @@ if not st.session_state.get("logado", False):
     usuario = st.sidebar.text_input("Usuário")
     senha = st.sidebar.text_input("Senha", type="password")
 
-    if not st.session_state.get("logado", False) and st.sidebar.button("Entrar / Cadastrar"):
+    if st.sidebar.button("Entrar / Cadastrar") and usuario and senha:
       if not usuario or not senha:
         st.sidebar.error("Digite usuário e senha")
 
