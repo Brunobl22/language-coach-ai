@@ -315,24 +315,26 @@ with col_dir:
 
     if mensagem:
 
-        preparacao = preparar_resposta_alex(
-    mensagem=mensagem,
-    nivel=nivel_escolhido,
-    modo=modo,
-    perfil=st.session_state.get("perfil", {}),
-    memoria=st.session_state.get("memoria", {})
-)
-        analise = preparacao["analise"]
+       preparacao = preparar_resposta_alex(
+        mensagem=mensagem,
+        nivel=nivel_escolhido,
+        modo=modo,
+        perfil=st.session_state.get("perfil", {}),
+        memoria=st.session_state.get("memoria", {})
+    )
+
+    analise = preparacao["analise"]
     observacoes = preparacao["observacoes"]
     contexto = preparacao["contexto"]
     personalidade = preparacao["personalidade"]
     evolucao = preparacao["evolucao"]
 
-       st.session_state.mensagens.append({
-         "role": "user",
-         "content": mensagem
-      })
-        prompt_sistema = f"""
+    st.session_state.mensagens.append({
+        "role": "user",
+        "content": mensagem
+    })
+
+    prompt_sistema = f"""
 Você é Teacher Alex, um professor de inglês amigável para brasileiros.
 
 {contexto}
