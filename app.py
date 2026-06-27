@@ -327,7 +327,7 @@ observacoes = preparacao["observacoes"]
 contexto = preparacao["contexto"]
 personalidade = preparacao["personalidade"]
 evolucao = preparacao["evolucao"]
-        st.session_state.mensagens.append({
+         st.session_state.mensagens.append({
             "role": "user",
             "content": mensagem
         })
