@@ -319,6 +319,11 @@ with col_dir:
     perfil=st.session_state.get("perfil", {}),
     memoria=st.session_state.get("memoria", {})
 )
+        analise = preparacao["analise"]
+observacoes = preparacao["observacoes"]
+contexto = preparacao["contexto"]
+personalidade = preparacao["personalidade"]
+evolucao = preparacao["evolucao"]
         st.session_state.mensagens.append({
             "role": "user",
             "content": mensagem
