@@ -1,5 +1,15 @@
 from openai import OpenAI
 
+from cerebro import (
+    analisar_mensagem,
+    escolher_proxima_acao,
+    montar_contexto_alex
+)
+
+from memoria import resumo_memoria
+
+from perfil import resumo_perfil
+
 class TeacherAlex:
 
     def _init_(self, client):
