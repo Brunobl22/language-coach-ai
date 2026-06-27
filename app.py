@@ -14,6 +14,9 @@ from memoria import (
     adicionar_item,
     resumo_memoria
 )
+
+from aprendizado import atualizar_aprendizado
+
 from supabase_db import (
     carregar_usuarios,
     salvar_usuario,
@@ -369,6 +372,11 @@ Regras:
             "role": "assistant",
             "content": texto
         })
+
+         st.session_state.memoria = atualizar_aprendizado(
+            st.session_state.memoria,
+                observacoes
+         )
 
         hoje = str(date.today())
 
