@@ -379,21 +379,21 @@ Regras:
         observacoes
     )
 
-        hoje = str(date.today())
+    hoje = str(date.today())
 
-        if st.session_state.ultimo_dia != hoje:
-            st.session_state.streak += 1
-            st.session_state.ultimo_dia = hoje
+    if st.session_state.ultimo_dia != hoje:
+        st.session_state.streak += 1
+        st.session_state.ultimo_dia = hoje
 
-        st.session_state.xp += 10
-        st.session_state.moedas += 1
-        st.session_state.missoes += 1
+    st.session_state.xp += 10
+    st.session_state.moedas += 1
+    st.session_state.missoes += 1
 
-        if st.session_state.missoes >= 5:
-            st.session_state.missoes = 0
-            st.session_state.moedas += 5
+    if st.session_state.missoes >= 5:
+        st.session_state.missoes = 0
+        st.session_state.moedas += 5
 
-        salvar_progresso()
-        st.rerun()
+    salvar_progresso()
+    st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True)
