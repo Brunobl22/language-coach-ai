@@ -3,9 +3,19 @@ from openai import OpenAI
 from supabase import create_client
 from datetime import date
 
+from teacher_alex import TeacherAlex
+from gamificacao import progresso_padrao, calcular_nivel
+from supabase_db import (
+    carregar_usuarios,
+    salvar_usuario,
+    usuario_existe,
+    senha_correta
+)
+
 st.set_page_config(page_title="AI Language Coach", page_icon="🌍", layout="wide")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+alex = TeacherAlex(client)
 supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
 TABELA = "usuarios"
