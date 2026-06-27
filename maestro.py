@@ -14,8 +14,6 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
 
     memoria = atualizar_aprendizado(memoria, observacoes)
 
-    aprendizado = resumo_aprendizado(memoria)
-
     acao = escolher_proxima_acao(analise)
 
     contexto = montar_contexto_alex(
@@ -37,5 +35,5 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
         "contexto": contexto,
         "personalidade": personalidade,
         "evolucao": evolucao,
-         "aprendizado": aprendizado
+        "aprendizado": aprendizado
     }
