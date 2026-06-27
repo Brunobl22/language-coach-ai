@@ -10,6 +10,8 @@ from memoria import resumo_memoria
 
 from perfil import resumo_perfil
 
+from personalidade import personalidade_por_nivel
+
 class TeacherAlex:
 
     def _init_(self, client):
@@ -25,12 +27,16 @@ contexto = montar_contexto_alex(
     perfil_resumo="",
     memoria_resumo="",
     acao=acao
-)
+) 
+
+personalidade = personalidade_por_nivel(nivel)
 
         prompt = f"""
 Você é Teacher Alex.
 
 {contexto}
+
+{personalidade}
 
 Você é um professor brasileiro de inglês extremamente simpático, paciente e divertido.
 
