@@ -328,10 +328,10 @@ with col_dir:
     personalidade = preparacao["personalidade"]
     evolucao = preparacao["evolucao"]
 
-    st.session_state.mensagens.append({
-        "role": "user",
-        "content": mensagem
-    })
+       st.session_state.mensagens.append({
+         "role": "user",
+         "content": mensagem
+      })
         prompt_sistema = f"""
 Você é Teacher Alex, um professor de inglês amigável para brasileiros.
 
