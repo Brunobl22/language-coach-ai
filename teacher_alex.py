@@ -17,6 +17,16 @@ class TeacherAlex:
 
     def responder(self, historico, nivel, modo):
 
+    analise = analisar_mensagem(historico[-1]["content"] if historico else "")
+
+acao = escolher_proxima_acao(analise)
+
+contexto = montar_contexto_alex(
+    perfil_resumo="",
+    memoria_resumo="",
+    acao=acao
+)
+
         prompt = f"""
 Você é Teacher Alex.
 
