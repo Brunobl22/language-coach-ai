@@ -3,6 +3,8 @@ from openai import OpenAI
 from supabase import create_client
 from datetime import date
 
+from maestro import preparar_resposta_alex
+
 from teacher_alex import TeacherAlex
 from gamificacao import progresso_padrao, calcular_nivel
 from perfil import perfil_padrao, atualizar_perfil, resumo_perfil
