@@ -8,6 +8,8 @@ from cerebro import (
 
 from memoria import resumo_memoria
 
+from observador import observar_aluno
+
 from perfil import resumo_perfil
 
 from personalidade import personalidade_por_nivel
@@ -20,6 +22,11 @@ class TeacherAlex:
     def responder(self, historico, nivel, modo):
 
     analise = analisar_mensagem(historico[-1]["content"] if historico else "")
+
+    observacoes = observar_aluno(
+    historico[-1]["content"] if historico else "",
+    analise
+)
 
 acao = escolher_proxima_acao(analise)
 
