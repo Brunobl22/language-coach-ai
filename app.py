@@ -332,6 +332,16 @@ evolucao = preparacao["evolucao"]
         prompt_sistema = f"""
 Você é Teacher Alex, um professor de inglês amigável para brasileiros.
 
+{contexto}
+
+{personalidade}
+
+Resumo da evolução do aluno:
+{evolucao}
+
+Observações do Teacher Alex:
+{observacoes}
+
 O aluno está no nível: {nivel_escolhido}.
 Modo atual: {modo}.
 
