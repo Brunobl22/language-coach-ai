@@ -311,6 +311,14 @@ with col_dir:
     mensagem = st.chat_input("Digite sua resposta ou mensagem...")
 
     if mensagem:
+
+        preparacao = preparar_resposta_alex(
+    mensagem=mensagem,
+    nivel=nivel_escolhido,
+    modo=modo,
+    perfil=st.session_state.get("perfil", {}),
+    memoria=st.session_state.get("memoria", {})
+)
         st.session_state.mensagens.append({
             "role": "user",
             "content": mensagem
