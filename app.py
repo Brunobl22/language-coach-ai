@@ -6,6 +6,12 @@ from datetime import date
 from teacher_alex import TeacherAlex
 from gamificacao import progresso_padrao, calcular_nivel
 from perfil import perfil_padrao, atualizar_perfil, resumo_perfil
+from memoria import (
+    memoria_padrao,
+    atualizar_memoria,
+    adicionar_item,
+    resumo_memoria
+)
 from supabase_db import (
     carregar_usuarios,
     salvar_usuario,
