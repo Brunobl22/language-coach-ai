@@ -313,9 +313,8 @@ with col_dir:
 
     mensagem = st.chat_input("Digite sua resposta ou mensagem...")
 
-    if mensagem:
-
-       preparacao = preparar_resposta_alex(
+if mensagem:
+    preparacao = preparar_resposta_alex(
         mensagem=mensagem,
         nivel=nivel_escolhido,
         modo=modo,
@@ -360,25 +359,25 @@ Regras:
 - Se o aluno escrever algo em inglês errado, corrija e explique.
 """
 
-        resposta = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": prompt_sistema},
-                *st.session_state.mensagens[-10:]
-            ]
-        )
+    resposta = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": prompt_sistema},
+            *st.session_state.mensagens[-10:]
+        ]
+    )
 
-        texto = resposta.choices[0].message.content
+    texto = resposta.choices[0].message.content
 
-        st.session_state.mensagens.append({
-            "role": "assistant",
-            "content": texto
-        })
+    st.session_state.mensagens.append({
+        "role": "assistant",
+        "content": texto
+    })
 
-         st.session_state.memoria = atualizar_aprendizado(
-            st.session_state.memoria,
-                observacoes
-         )
+    st.session_state.memoria = atualizar_aprendizado(
+        st.session_state.memoria,
+        observacoes
+    )
 
         hoje = str(date.today())
 
