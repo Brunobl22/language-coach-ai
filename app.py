@@ -373,10 +373,13 @@ Regras:
         "content": texto
     })
 
-    st.session_state.memoria = atualizar_aprendizado(
-        st.session_state.memoria,
-        observacoes
-    )
+    if "memoria" not in st.session_state:
+        st.session_state.memoria = {}
+
+st.session_state.memoria = atualizar_aprendizado(
+    st.session_state.memoria,
+    observacoes
+)
 
     hoje = str(date.today())
 
