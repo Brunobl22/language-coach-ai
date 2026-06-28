@@ -1,13 +1,13 @@
  def analisar_mensagem(mensagem):
     texto = (mensagem or "").lower()
 
-    analise = {
-        "tem_ingles": False,
-         "parece_duvida": False,
-        "parece_acerto": False,
-        "assunto": "",
-        "emocao": "neutra"
-    }
+   analise = {
+       "tem_ingles": False,
+       "parece_duvida": False,
+       "parece_acerto": False,
+       "assunto": "",
+       "emocao": "neutra"
+   }
 
     palavras_ingles = [
         "hello", "hi", "thank", "thanks", "good", "morning",
