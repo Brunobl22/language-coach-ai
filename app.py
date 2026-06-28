@@ -16,6 +16,8 @@ from memoria import (
 
 from aprendizado import atualizar_aprendizado
 
+from plano_aula import escolher_plano, resumo_plano
+
 from supabase_db import (
     carregar_usuarios,
     salvar_usuario,
