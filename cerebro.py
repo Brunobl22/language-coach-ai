@@ -1,13 +1,13 @@
- def analisar_mensagem(mensagem):
+def analisar_mensagem(mensagem):
     texto = (mensagem or "").lower()
 
-   analise = {
-       "tem_ingles": False,
-       "parece_duvida": False,
-       "parece_acerto": False,
-       "assunto": "",
-       "emocao": "neutra"
-   }
+    analise = {
+        "tem_ingles": False,
+        "parece_duvida": False,
+        "parece_acerto": False,
+        "assunto": "",
+        "emocao": "neutra"
+    }
 
     palavras_ingles = [
         "hello", "hi", "thank", "thanks", "good", "morning",
@@ -33,7 +33,7 @@
     elif "comida" in texto or "food" in texto:
         analise["assunto"] = "comida"
 
-    if "difícil" in texto or "nao consigo" in texto or "não consigo" in texto:
+    if "dificil" in texto or "nao consigo" in texto or "não consigo" in texto:
         analise["emocao"] = "dificuldade"
     elif "obrigado" in texto or "valeu" in texto:
         analise["emocao"] = "gratidao"
@@ -54,19 +54,17 @@ def escolher_proxima_acao(analise, perfil=None, memoria=None):
     if analise.get("assunto"):
         return "ensinar_por_interesse"
 
-    return "continuar_conversa"
+    return "conversar_e_praticar"
 
 
-def montar_contexto_alex(perfil_resumo="", memoria_resumo="", acao="continuar_conversa"):
+def montar_contexto_alex(perfil_resumo="", memoria_resumo="", acao=""):
     return f"""
-Contexto do aluno:
+Perfil do aluno:
 {perfil_resumo}
 
-Memória pedagógica:
+Memória do aluno:
 {memoria_resumo}
 
-Ação recomendada para esta resposta:
+Ação recomendada:
 {acao}
-
-Use esse contexto para responder como Teacher Alex.
 """
