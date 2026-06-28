@@ -27,7 +27,6 @@ from supabase_db import (
 st.set_page_config(page_title="AI Language Coach", page_icon="🌍", layout="wide")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-alex = TeacherAlex(client)
 supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
 TABELA = "usuarios"
