@@ -5,6 +5,7 @@ from perfil import resumo_perfil
 from personalidade import personalidade_por_nivel
 from evolucao import resumo_evolucao
 from aprendizado import atualizar_aprendizado, resumo_aprendizado
+from plano_aula import escolher_plano, resumo_plano
 
 
 def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
@@ -15,6 +16,9 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     memoria = atualizar_aprendizado(memoria, observacoes)
 
     acao = escolher_proxima_acao(analise)
+
+    plano = escolher_plano(acao, memoria, perfil)
+    plano_resumo = resumo_plano(plano)
 
     contexto = montar_contexto_alex(
         perfil_resumo=resumo_perfil(perfil),
@@ -35,5 +39,6 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
         "contexto": contexto,
         "personalidade": personalidade,
         "evolucao": evolucao,
-        "aprendizado": aprendizado
+        "aprendizado": aprendizado,
+        "plano": plano_resumo
     }
