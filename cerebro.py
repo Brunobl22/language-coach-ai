@@ -3,7 +3,7 @@
 
     analise = {
         "tem_ingles": False,
-        "parece_duvida": False,
+         "parece_duvida": False,
         "parece_acerto": False,
         "assunto": "",
         "emocao": "neutra"
