@@ -35,6 +35,14 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
         acao=acao
     )
 
+    contexto = contexto + f"""
+
+    Orientações do Mentor:
+    
+    {mentor_resumo}
+    
+    Sempre siga essas orientações antes de responder ao aluno.
+    """
     personalidade = personalidade_por_nivel(nivel)
 
     evolucao = resumo_evolucao(memoria)
