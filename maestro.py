@@ -6,6 +6,7 @@ from personalidade import personalidade_por_nivel
 from evolucao import resumo_evolucao
 from aprendizado import atualizar_aprendizado, resumo_aprendizado
 from plano_aula import escolher_plano, resumo_plano
+from mentor import orientar_professor, resumo_mentor
 
 
 def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
@@ -16,6 +17,14 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     memoria = atualizar_aprendizado(memoria, observacoes)
 
     acao = escolher_proxima_acao(analise)
+
+    mentor = orientar_professor(
+    analise,
+    memoria,
+    perfil
+)
+
+    mentor_resumo = resumo_mentor(mentor)
 
     plano = escolher_plano(acao, memoria, perfil)
     plano_resumo = resumo_plano(plano)
