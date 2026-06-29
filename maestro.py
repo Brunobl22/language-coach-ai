@@ -7,6 +7,7 @@ from evolucao import resumo_evolucao
 from aprendizado import atualizar_aprendizado, resumo_aprendizado
 from plano_aula import escolher_plano, resumo_plano
 from mentor import orientar_professor, resumo_mentor
+from missao import definir_missao, resumo_missao
 
 
 def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
@@ -25,6 +26,14 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
 )
 
     mentor_resumo = resumo_mentor(mentor)
+
+    missao = definir_missao(
+    analise,
+    memoria,
+    perfil
+)
+
+   missao_resumo = resumo_missao(missao)
 
     plano = escolher_plano(acao, memoria, perfil)
     plano_resumo = resumo_plano(plano)
