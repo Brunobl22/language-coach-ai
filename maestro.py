@@ -44,11 +44,15 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
         acao=acao
     )
 
-    contexto = contexto + f"""
+   contexto = contexto + f"""
 
     Orientações do Mentor:
     
     {mentor_resumo}
+    
+    Missão do Alex nesta resposta:
+    
+    {missao_resumo}
     
     Sempre siga essas orientações antes de responder ao aluno.
     """
