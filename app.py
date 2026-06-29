@@ -327,6 +327,7 @@ if mensagem:
     contexto = preparacao["contexto"]
     personalidade = preparacao["personalidade"]
     evolucao = preparacao["evolucao"]
+    plano = preparacao["plano"]
 
     st.session_state.mensagens.append({
         "role": "user",
@@ -345,6 +346,12 @@ Resumo da evolução do aluno:
 
 Observações do Teacher Alex:
 {observacoes}
+
+Plano pedagógico desta resposta:
+
+{plano}
+
+Siga esse plano antes de responder ao aluno.
 
 O aluno está no nível: {nivel_escolhido}.
 Modo atual: {modo}.
