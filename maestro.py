@@ -48,13 +48,13 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     plano
 )
 
-   estrategia_resumo = resumo_estrategia(estrategia)
+    estrategia_resumo = resumo_estrategia(estrategia)
 
-   coordenador = avaliar_resposta(
+    coordenador = avaliar_resposta(
     analise,
     memoria,
     perfil
-)
+    )
 
     coordenador_resumo = resumo_coordenador(coordenador)
 
