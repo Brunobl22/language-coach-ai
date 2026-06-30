@@ -60,6 +60,12 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     Orientações do Mentor:
     
     {mentor_resumo}
+
+    Estratégia pedagógica:
+
+    {estrategia_resumo}
+
+    Sempre siga essa estratégia durante esta resposta.
     
     Missão do Alex nesta resposta:
     
