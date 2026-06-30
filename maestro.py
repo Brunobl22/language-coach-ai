@@ -10,6 +10,7 @@ from mentor import orientar_professor, resumo_mentor
 from missao import definir_missao, resumo_missao
 from diretor_pedagogico import decidir_estrategia, resumo_estrategia
 from coordenador import avaliar_resposta, resumo_coordenador
+from supervisor import revisar_resposta, resumo_supervisor
 
 
 def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
@@ -57,6 +58,14 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     )
 
     coordenador_resumo = resumo_coordenador(coordenador)
+
+    supervisor = revisar_resposta(
+    analise,
+    estrategia,
+    coordenador
+)
+
+    supervisor_resumo = resumo_supervisor(supervisor)
 
     contexto = montar_contexto_alex(
         perfil_resumo=resumo_perfil(perfil),
