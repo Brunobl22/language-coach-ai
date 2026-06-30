@@ -212,6 +212,17 @@ with st.sidebar:
     progresso_nivel = (st.session_state.xp % 100) / 100
     xp_restante = 100 - (st.session_state.xp % 100)
 
+    st.markdown("---")
+    st.markdown("### 📊 Seu progresso")
+    st.write(f"🎯 Missões feitas: *{st.session_state.missoes}/5*")
+    st.write(f"🔥 Streak diária: *{st.session_state.streak} dias*")
+    st.write(f"⭐ XP: *{st.session_state.xp}*")
+    st.write(f"🟡 Moedas: *{st.session_state.moedas}*")
+    st.write(f"🏆 Nível: *{nivel_atual}*")
+    st.progress(progresso_nivel)
+    st.caption(f"Faltam {xp_restante} XP para o próximo nível")
+    st.markdown("---")
+
     st.markdown("### 🛒 Loja")
 
     if st.button("Comprar vida extra - 3 moedas"):
@@ -260,14 +271,6 @@ with col_esq:
         "https://api.dicebear.com/7.x/bottts/png?seed=TeacherAlex",
         width=220
     )
-
-    st.markdown(f"""
-    <div class="metric-card">🏆 Nível atual: <b>{nivel_atual}</b></div>
-    <div class="metric-card">⭐ XP: <b>{st.session_state.xp}</b></div>
-    <div class="metric-card">🪙 Moedas: <b>{st.session_state.moedas}</b></div>
-    <div class="metric-card">❤️ Vidas: <b>{st.session_state.vidas}</b></div>
-    """, unsafe_allow_html=True)
-
 
 with col_dir:
     st.markdown('<div class="main-card">', unsafe_allow_html=True)
