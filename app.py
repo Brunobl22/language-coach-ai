@@ -396,6 +396,5 @@ if st.session_state.missoes >= 5:
         st.session_state.moedas += 5
 
 salvar_progresso()
-st.rerun()
 
 st.markdown("</div>", unsafe_allow_html=True)
