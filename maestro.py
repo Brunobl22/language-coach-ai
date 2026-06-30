@@ -8,6 +8,7 @@ from aprendizado import atualizar_aprendizado, resumo_aprendizado
 from plano_aula import escolher_plano, resumo_plano
 from mentor import orientar_professor, resumo_mentor
 from missao import definir_missao, resumo_missao
+from diretor_pedagogico import decidir_estrategia, resumo_estrategia
 
 
 def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
