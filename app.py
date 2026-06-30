@@ -313,8 +313,10 @@ with col_dir:
 
     mensagem = st.chat_input("Digite sua resposta ou mensagem...")
 
-if mensagem and mensagem != st.session_state.get("ultima_mensagem_processada"):
-    st.session_state.ultima_mensagem_processada = mensagem
+    chave_mensagem = mensagem.strip().lower() if mensagem else ""
+
+if mensagem and chave_mensagem != st.session_state.get("ultima_mensagem_processada"):
+    st.session_state.ultima_mensagem_processada = chave_mensagem
     preparacao = preparar_resposta_alex(
         mensagem=mensagem,
         nivel=nivel_escolhido,
@@ -412,5 +414,6 @@ if st.session_state.missoes >= 5:
         st.session_state.moedas += 5
 
 salvar_progresso()
+st.rerum()
 
 st.markdown("</div>", unsafe_allow_html=True)
