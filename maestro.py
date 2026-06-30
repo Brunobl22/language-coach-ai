@@ -64,7 +64,7 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
         acao=acao
     )
 
-   contexto = contexto + f"""
+    contexto = contexto + f"""
 
     Orientações do Mentor:
     
