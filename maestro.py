@@ -39,6 +39,16 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     plano = escolher_plano(acao, memoria, perfil)
     plano_resumo = resumo_plano(plano)
 
+    estrategia = decidir_estrategia(
+    analise,
+    memoria,
+    perfil,
+    missao,
+    plano
+)
+
+   estrategia_resumo = resumo_estrategia(estrategia)
+
     contexto = montar_contexto_alex(
         perfil_resumo=resumo_perfil(perfil),
         memoria_resumo=resumo_memoria(memoria),
