@@ -18,6 +18,8 @@ from aprendizado import atualizar_aprendizado
 
 from plano_aula import escolher_plano, resumo_plano
 
+from roteiro_aula import montar_roteiro_aula, resumo_roteiro
+
 from supabase_db import (
     carregar_usuarios,
     salvar_usuario,
