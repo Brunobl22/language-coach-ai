@@ -35,7 +35,7 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     perfil
 )
 
-   missao_resumo = resumo_missao(missao)
+    missao_resumo = resumo_missao(missao)
 
     plano = escolher_plano(acao, memoria, perfil)
     plano_resumo = resumo_plano(plano)
