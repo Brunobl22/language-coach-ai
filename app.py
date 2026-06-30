@@ -336,6 +336,8 @@ if mensagem and chave_mensagem != st.session_state.get("ultima_mensagem_processa
         "role": "user",
         "content": mensagem
     })
+    
+    st.chat_message("user").write(mensagem)
 
     prompt_sistema = f"""
 Você é Teacher Alex, um professor de inglês amigável para brasileiros.
@@ -398,6 +400,8 @@ Estilo humano do Teacher Alex:
         "role": "assistant",
         "content": texto
     })
+
+    st.chat_message("assistant").write(texto)
 
 hoje = str(date.today())
 
