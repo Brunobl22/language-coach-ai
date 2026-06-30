@@ -212,17 +212,6 @@ with st.sidebar:
     progresso_nivel = (st.session_state.xp % 100) / 100
     xp_restante = 100 - (st.session_state.xp % 100)
 
-    st.markdown("---")
-    st.markdown("### 📊 Seu progresso")
-    st.write(f"🎯 Missões feitas: *{st.session_state.missoes}/5*")
-    st.write(f"🔥 Streak diária: *{st.session_state.streak} dias*")
-    st.write(f"⭐ XP: *{st.session_state.xp}*")
-    st.write(f"🪙 Moedas: *{st.session_state.moedas}*")
-    st.write(f"🏆 Nível: *{nivel_atual}*")
-    st.progress(progresso_nivel)
-    st.caption(f"Faltam {xp_restante} XP para o próximo nível")
-
-    st.markdown("---")
     st.markdown("### 🛒 Loja")
 
     if st.button("Comprar vida extra - 3 moedas"):
