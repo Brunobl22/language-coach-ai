@@ -9,6 +9,7 @@ from plano_aula import escolher_plano, resumo_plano
 from mentor import orientar_professor, resumo_mentor
 from missao import definir_missao, resumo_missao
 from diretor_pedagogico import decidir_estrategia, resumo_estrategia
+from coordenador import avaliar_resposta, resumo_coordenador
 
 
 def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
@@ -49,6 +50,14 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
 
    estrategia_resumo = resumo_estrategia(estrategia)
 
+   coordenador = avaliar_resposta(
+    analise,
+    memoria,
+    perfil
+)
+
+    coordenador_resumo = resumo_coordenador(coordenador)
+
     contexto = montar_contexto_alex(
         perfil_resumo=resumo_perfil(perfil),
         memoria_resumo=resumo_memoria(memoria),
@@ -66,7 +75,13 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     {estrategia_resumo}
 
     Sempre siga essa estratégia durante esta resposta.
+
+    Avaliação do Coordenador:
+
+    {coordenador_resumo}
     
+    Utilize essa avaliação para decidir se deve reforçar, explicar novamente ou avançar.
+      
     Missão do Alex nesta resposta:
     
     {missao_resumo}
