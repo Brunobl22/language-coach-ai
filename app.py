@@ -326,6 +326,13 @@ if mensagem and chave_mensagem != st.session_state.get("ultima_mensagem_processa
     evolucao = preparacao["evolucao"]
     plano = preparacao["plano"]
 
+    roteiro = montar_roteiro_aula(
+    analise=analise,
+    plano=plano
+)
+
+    resumo_do_roteiro = resumo_roteiro(roteiro)
+
     st.session_state.mensagens.append({
         "role": "user",
         "content": mensagem
@@ -350,7 +357,11 @@ Plano pedagógico desta resposta:
 
 {plano}
 
-Siga esse plano antes de responder ao aluno.
+Roteiro obrigatório da resposta:
+
+{resumo_do_roteiro}
+
+Siga obrigatoriamente esse roteiro antes de responder ao aluno
 
 O aluno está no nível: {nivel_escolhido}.
 Modo atual: {modo}.
