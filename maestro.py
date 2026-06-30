@@ -90,6 +90,12 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     {coordenador_resumo}
     
     Utilize essa avaliação para decidir se deve reforçar, explicar novamente ou avançar.
+
+    Revisão do Supervisor:
+
+    {supervisor_resumo}
+
+    Siga também esta revisão antes de responder ao aluno.
       
     Missão do Alex nesta resposta:
     
