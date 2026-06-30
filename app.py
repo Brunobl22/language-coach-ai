@@ -313,7 +313,8 @@ with col_dir:
 
     mensagem = st.chat_input("Digite sua resposta ou mensagem...")
 
-if mensagem:
+if mensagem and mensagem != st.session_state.get("ultima_mensagem_processada"):
+    st.session_state.ultima_mensagem_processada = mensagem
     preparacao = preparar_resposta_alex(
         mensagem=mensagem,
         nivel=nivel_escolhido,
