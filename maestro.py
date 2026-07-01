@@ -110,12 +110,16 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     aprendizado = resumo_aprendizado(memoria)
 
     return {
-        "analise": analise,
-        "observacoes": observacoes,
-        "acao": acao,
-        "contexto": contexto,
-        "personalidade": personalidade,
-        "evolucao": evolucao,
-        "aprendizado": aprendizado,
-        "plano": plano_resumo
-    }
+    "analise": analise,
+    "observacoes": observacoes,
+    "acao": acao,
+    "contexto": contexto,
+    "personalidade": personalidade,
+    "evolucao": evolucao,
+    "aprendizado": aprendizado,
+    "plano": plano_resumo,
+    "missao": missao_resumo,
+    "diretor": direcao,
+    "coordenador": coordenador,
+    "supervisor": supervisor
+}
