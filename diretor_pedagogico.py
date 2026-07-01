@@ -1,13 +1,17 @@
 def decidir_direcao(
-    conselho,
+    conselho=None,
     memoria=None,
     perfil=None,
     evolucao=None,
     objetivo=None,
     plano=None,
     roteiro=None,
-    missao=None
+    missao=None,
+    mentor=None,
+    coordenador=None,
+    supervisor=None
 ):
+    conselho = conselho or {}
     memoria = memoria or {}
     perfil = perfil or {}
     evolucao = evolucao or {}
@@ -15,50 +19,70 @@ def decidir_direcao(
     plano = plano or {}
     roteiro = roteiro or {}
     missao = missao or {}
+    mentor = mentor or {}
+    coordenador = coordenador or {}
+    supervisor = supervisor or {}
+
+    texto = " ".join([
+        str(conselho),
+        str(memoria),
+        str(perfil),
+        str(evolucao),
+        str(objetivo),
+        str(plano),
+        str(roteiro),
+        str(missao),
+        str(mentor),
+        str(coordenador),
+        str(supervisor)
+    ]).lower()
 
     direcao = {
         "decisao_final": "conduzir_com_leveza",
         "prioridade": "clareza",
-        "tom": "paciente",
+        "tom": "paciente_e_natural",
         "nivel_dificuldade": "facil",
         "acao": "ensinar_uma_coisa_pequena",
-        "usar_memoria": False,
+        "usar_memoria": True,
         "revisar": False,
         "avancar": False,
         "motivar": True,
-        "observacao": "Seguir o conselho pedagógico com equilíbrio."
+        "regra_final": "Responda como professor humano, simples, claro e acolhedor.",
+        "observacao": "Seguir o plano, mas adaptar conforme a necessidade do aluno."
     }
 
-    texto_conselho = str(conselho).lower()
-
-    if "dificuldade" in texto_conselho or "desmotivado" in texto_conselho:
+    if "dificuldade" in texto or "desmotivado" in texto or "confuso" in texto:
         direcao.update({
             "decisao_final": "acolher_e_simplificar",
             "prioridade": "seguranca_emocional",
-            "tom": "acolhedor",
+            "tom": "acolhedor_e_calmo",
             "nivel_dificuldade": "muito_facil",
             "acao": "explicar_com_exemplo_simples",
-            "motivar": True,
+            "revisar": True,
+            "avancar": False,
             "observacao": "O aluno precisa se sentir seguro antes de avançar."
         })
 
-    elif "dúvida" in texto_conselho or "duvida" in texto_conselho or "explicar" in texto_conselho:
+    elif "dúvida" in texto or "duvida" in texto or "explicar" in texto:
         direcao.update({
             "decisao_final": "explicar_antes_de_avancar",
             "prioridade": "clareza",
             "tom": "paciente",
             "nivel_dificuldade": "facil",
             "acao": "dar_exemplo_curto_e_confirmar_entendimento",
+            "revisar": True,
+            "avancar": False,
             "observacao": "O aluno precisa entender antes de receber novo desafio."
         })
 
-    elif "acerto" in texto_conselho or "avançar" in texto_conselho or "avancar" in texto_conselho:
+    elif "acerto" in texto or "avançar" in texto or "avancar" in texto:
         direcao.update({
             "decisao_final": "elogiar_e_avancar",
             "prioridade": "pequeno_avanco",
             "tom": "positivo",
             "nivel_dificuldade": "facil",
             "acao": "dar_um_mini_desafio",
+            "revisar": False,
             "avancar": True,
             "observacao": "O aluno demonstrou compreensão e pode avançar um pouco."
         })
@@ -73,6 +97,11 @@ def decidir_direcao(
         direcao["avancar"] = False
         direcao["acao"] = "revisar_antes_de_avancar"
         direcao["observacao"] += " A evolução indica necessidade de revisão."
+
+    if supervisor and str(supervisor).lower().find("problema") != -1:
+        direcao["revisar"] = True
+        direcao["avancar"] = False
+        direcao["observacao"] += " O supervisor encontrou ponto de atenção."
 
     return direcao
 
@@ -107,6 +136,9 @@ Avançar:
 
 Motivar:
 {direcao.get("motivar", True)}
+
+Regra final:
+{direcao.get("regra_final", "")}
 
 Observação:
 {direcao.get("observacao", "")}
