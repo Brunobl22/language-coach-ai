@@ -8,7 +8,7 @@ from aprendizado import atualizar_aprendizado, resumo_aprendizado
 from plano_aula import escolher_plano, resumo_plano
 from mentor import orientar_professor, resumo_mentor
 from missao import definir_missao, resumo_missao
-from diretor_pedagogico import decidir_estrategia, resumo_estrategia
+from diretor_pedagogico import decidir_direcao, resumo_diretor
 from coordenador import avaliar_resposta, resumo_coordenador
 from supervisor import revisar_resposta, resumo_supervisor
 
@@ -41,7 +41,7 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     plano = escolher_plano(acao, memoria, perfil)
     plano_resumo = resumo_plano(plano)
 
-    estrategia = decidir_estrategia(
+    direcao = decidir_direcao(
     analise,
     memoria,
     perfil,
@@ -49,7 +49,7 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     plano
 )
 
-    estrategia_resumo = resumo_estrategia(estrategia)
+    direcao_resumo = resumo_diretor(direcao)
 
     coordenador = avaliar_resposta(
     analise,
@@ -61,7 +61,7 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
 
     supervisor = revisar_resposta(
     analise,
-    estrategia,
+    direcao,
     coordenador
 )
 
@@ -79,9 +79,9 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     
     {mentor_resumo}
 
-    Estratégia pedagógica:
+    Direção pedagógica:
 
-    {estrategia_resumo}
+    {direcao_resumo}
 
     Sempre siga essa estratégia durante esta resposta.
 
