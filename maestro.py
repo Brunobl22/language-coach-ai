@@ -42,11 +42,12 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
     plano_resumo = resumo_plano(plano)
 
     direcao = decidir_direcao(
-    analise,
-    memoria,
-    perfil,
-    missao,
-    plano
+    conselho=analise,
+    memoria=memoria,
+    perfil=perfil,
+    plano=plano,
+    missao=missao,
+    mentor=mentor
 )
 
     direcao_resumo = resumo_diretor(direcao)
