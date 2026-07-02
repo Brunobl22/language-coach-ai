@@ -84,6 +84,12 @@ def preparar_resposta_alex(mensagem, nivel, modo, perfil=None, memoria=None):
 
     {direcao_resumo}
 
+    A direção pedagógica acima é obrigatória.
+    Se ela mandar revisar, revise.
+    Se ela mandar simplificar, simplifique.
+    Se ela mandar avançar, avance apenas um pouco.
+    Nunca ignore a decisão do Diretor Pedagógico.
+
     Sempre siga essa estratégia durante esta resposta.
 
     Avaliação do Coordenador:
